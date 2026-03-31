@@ -134,7 +134,7 @@ function HeroSection() {
               <Box sx={{ width: 32, height: 32, borderRadius: '50%', backgroundColor: 'primary.main', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <Sprout size={16} color="white" />
               </Box>
-              <Box sx={{ backgroundColor: isDark ? '#1E3025' : '#F8F9FA', borderRadius: '12px 12px 12px 4px', p: 1.5, fontSize: '0.85rem', color: 'text.primary' }}>
+              <Box sx={{ backgroundColor: 'custom.chatPreview', borderRadius: '12px 12px 12px 4px', p: 1.5, fontSize: '0.85rem', color: 'text.primary' }}>
                 Olá! Envie uma foto da folha para análise fitossanitária.
               </Box>
             </Box>
@@ -150,7 +150,7 @@ function HeroSection() {
               <Box sx={{ width: 32, height: 32, borderRadius: '50%', backgroundColor: 'primary.main', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <Sprout size={16} color="white" />
               </Box>
-              <Box sx={{ backgroundColor: isDark ? '#1E3025' : '#F8F9FA', borderRadius: '12px 12px 12px 4px', p: 1.5, fontSize: '0.85rem' }}>
+              <Box sx={{ backgroundColor: 'custom.chatPreview', borderRadius: '12px 12px 12px 4px', p: 1.5, fontSize: '0.85rem' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
                   <FileText size={14} color="#2D6A4F" />
                   <Typography variant="caption" sx={{ fontWeight: 600, color: 'primary.main' }}>
@@ -164,7 +164,7 @@ function HeroSection() {
             </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2, pt: 2, borderTop: '1px solid', borderColor: 'divider' }}>
-              <Box sx={{ flex: 1, backgroundColor: isDark ? '#1E3025' : '#F8F9FA', borderRadius: 3, p: 1, fontSize: '0.8rem', color: 'text.secondary' }}>
+              <Box sx={{ flex: 1, backgroundColor: 'custom.chatPreview', borderRadius: 3, p: 1, fontSize: '0.8rem', color: 'text.secondary' }}>
                 Digite sua mensagem...
               </Box>
               <Box sx={{ width: 32, height: 32, borderRadius: '50%', backgroundColor: 'primary.main', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
