@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -14,7 +15,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import { Menu, Leaf, MessageCircle, History, BookOpen, Info, ArrowRight, Cpu } from 'lucide-react';
+import { Menu, Leaf, MessageCircle, History, BookOpen, Info, ArrowRight, Cpu, Moon, Sun } from 'lucide-react';
+import { ColorModeContext } from '../../ColorModeContext';
 
 const navLinks = [
   { label: 'Como Funciona', path: '/#como-funciona' },
@@ -37,6 +39,7 @@ function Navbar() {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { toggleColorMode, mode } = useContext(ColorModeContext);
 
   const navigate = useNavigate();
 
@@ -128,7 +131,25 @@ function Navbar() {
               >
                 Iniciar Diagnóstico
               </Button>
+              <Tooltip title={mode === 'dark' ? 'Modo claro' : 'Modo escuro'}>
+                <IconButton
+                  onClick={toggleColorMode}
+                  sx={{ ml: 0.5, color: 'text.primary' }}
+                >
+                  {mode === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                </IconButton>
+              </Tooltip>
             </Box>
+          )}
+          {isMobile && (
+            <Tooltip title={mode === 'dark' ? 'Modo claro' : 'Modo escuro'}>
+              <IconButton
+                onClick={toggleColorMode}
+                sx={{ color: 'text.primary' }}
+              >
+                {mode === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              </IconButton>
+            </Tooltip>
           )}
         </Toolbar>
       </AppBar>
