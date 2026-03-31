@@ -4,8 +4,11 @@ import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import { useDarkMode } from '../../hooks/useDarkMode';
 
 function ApiSidebar({ sections, activeSection }) {
+  const isDark = useDarkMode();
+
   const handleClick = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -23,7 +26,7 @@ function ApiSidebar({ sections, activeSection }) {
         height: 'calc(100vh - 100px)',
         overflowY: 'auto',
         display: { xs: 'none', md: 'block' },
-        borderRight: '1px solid #E5E7EB',
+        borderRight: `1px solid ${isDark ? '#2D3B35' : '#E5E7EB'}`,
         pr: 1,
       }}
     >
@@ -55,10 +58,14 @@ function ApiSidebar({ sections, activeSection }) {
                 mx: 0.5,
                 py: 0.8,
                 px: 1.5,
-                borderLeft: isActive ? '3px solid #2D6A4F' : '3px solid transparent',
-                backgroundColor: isActive ? 'rgba(45, 106, 79, 0.06)' : 'transparent',
+                borderLeft: isActive ? `3px solid ${isDark ? '#52B788' : '#2D6A4F'}` : '3px solid transparent',
+                backgroundColor: isActive
+                  ? isDark
+                    ? 'rgba(45, 106, 79, 0.2)'
+                    : 'rgba(45, 106, 79, 0.06)'
+                  : 'transparent',
                 '&:hover': {
-                  backgroundColor: 'rgba(45, 106, 79, 0.04)',
+                  backgroundColor: isDark ? 'rgba(45, 106, 79, 0.14)' : 'rgba(45, 106, 79, 0.04)',
                 },
               }}
             >

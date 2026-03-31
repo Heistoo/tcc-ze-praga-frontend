@@ -1,5 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+import { useDarkMode } from '../../hooks/useDarkMode';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -40,13 +41,15 @@ const cardVariants = {
 };
 
 function HowItWorksSection() {
+  const isDark = useDarkMode();
+
   return (
     <Box
       id="como-funciona"
       sx={{
         py: { xs: 8, md: 10 },
         px: { xs: 3, md: 6 },
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'background.paper',
       }}
     >
       <Box sx={{ maxWidth: 1200, mx: 'auto' }}>
@@ -55,7 +58,7 @@ function HowItWorksSection() {
           sx={{
             textAlign: 'center',
             fontWeight: 700,
-            color: 'primary.dark',
+            color: isDark ? 'text.primary' : 'primary.dark',
             mb: 1.5,
           }}
         >

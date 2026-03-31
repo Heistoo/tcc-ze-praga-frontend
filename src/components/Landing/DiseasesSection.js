@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useDarkMode } from '../../hooks/useDarkMode';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Chip from '@mui/material/Chip';
@@ -21,6 +22,7 @@ const cardVariants = {
 };
 
 function DiseasesSection() {
+  const isDark = useDarkMode();
   const displayDiseases = diseases.filter((d) => d.severity !== 'nenhuma');
 
   return (
@@ -28,7 +30,7 @@ function DiseasesSection() {
       sx={{
         py: { xs: 8, md: 10 },
         px: { xs: 3, md: 6 },
-        backgroundColor: '#F0FFF4',
+        backgroundColor: 'background.default',
       }}
     >
       <Box sx={{ maxWidth: 1200, mx: 'auto' }}>
@@ -37,7 +39,7 @@ function DiseasesSection() {
           sx={{
             textAlign: 'center',
             fontWeight: 700,
-            color: 'primary.dark',
+            color: isDark ? 'text.primary' : 'primary.dark',
             mb: 1.5,
           }}
         >

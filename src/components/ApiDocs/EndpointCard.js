@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import CodeBlock from './CodeBlock';
+import { useDarkMode } from '../../hooks/useDarkMode';
 
 const methodColors = {
   GET: { bg: '#D1FAE5', color: '#065F46' },
@@ -12,13 +13,15 @@ const methodColors = {
 };
 
 function EndpointCard({ method, path, description, parameters, responseExample, codeExamples }) {
+  const isDark = useDarkMode();
   const mColor = methodColors[method] || methodColors.GET;
 
   return (
     <Box
       sx={{
         borderRadius: 3,
-        border: '1px solid #E5E7EB',
+        border: `1px solid ${isDark ? '#2D3B35' : '#E5E7EB'}`,
+        backgroundColor: isDark ? '#132218' : 'transparent',
         overflow: 'hidden',
         mb: 3,
       }}
@@ -62,7 +65,7 @@ function EndpointCard({ method, path, description, parameters, responseExample, 
                   textAlign: 'left',
                   py: 1,
                   px: 1.5,
-                  borderBottom: '1px solid #E5E7EB',
+                  borderBottom: `1px solid ${isDark ? '#2D3B35' : '#E5E7EB'}`,
                 },
                 '& th': {
                   fontWeight: 600,
@@ -82,7 +85,7 @@ function EndpointCard({ method, path, description, parameters, responseExample, 
                 {parameters.map((param) => (
                   <tr key={param.name}>
                     <td>
-                      <code style={{ color: '#2D6A4F', fontWeight: 600 }}>{param.name}</code>
+                      <code style={{ color: isDark ? '#52B788' : '#2D6A4F', fontWeight: 600 }}>{param.name}</code>
                       {param.required && (
                         <Typography component="span" variant="caption" sx={{ color: '#E63946', ml: 0.5 }}>
                           *
@@ -106,14 +109,15 @@ function EndpointCard({ method, path, description, parameters, responseExample, 
             <Box
               component="pre"
               sx={{
-                backgroundColor: '#F8F9FA',
+                backgroundColor: isDark ? '#0D1B12' : '#F8F9FA',
+                color: isDark ? '#D1E7D4' : 'inherit',
                 borderRadius: 2,
                 p: 2,
                 overflowX: 'auto',
                 fontFamily: 'monospace',
                 fontSize: '0.8rem',
                 lineHeight: 1.6,
-                border: '1px solid #E5E7EB',
+                border: `1px solid ${isDark ? '#2D3B35' : '#E5E7EB'}`,
               }}
             >
               <code>{JSON.stringify(responseExample, null, 2)}</code>

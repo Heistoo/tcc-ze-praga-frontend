@@ -7,6 +7,7 @@ import { BookOpen, Server, Key, Zap, AlertTriangle, Gauge } from 'lucide-react';
 import EndpointCard from '../components/ApiDocs/EndpointCard';
 import CodeBlock from '../components/ApiDocs/CodeBlock';
 import ApiSidebar from '../components/ApiDocs/ApiSidebar';
+import { useDarkMode } from '../hooks/useDarkMode';
 
 const BASE_URL = 'https://api.zepraga.com.br/api/v1';
 
@@ -22,6 +23,7 @@ const SECTIONS = [
 ];
 
 function ApiDocsPage() {
+  const isDark = useDarkMode();
   const [activeSection, setActiveSection] = useState('introducao');
   const observerRef = useRef(null);
 
@@ -49,7 +51,16 @@ function ApiDocsPage() {
     <Box sx={{ display: 'flex', maxWidth: 1200, mx: 'auto', px: { xs: 2, md: 3 }, py: 4 }}>
       <ApiSidebar sections={SECTIONS} activeSection={activeSection} />
 
-      <Box sx={{ flex: 1, pl: { md: 4 }, maxWidth: '100%', overflow: 'hidden' }}>
+      <Box
+        sx={{
+          flex: 1,
+          pl: { md: 4 },
+          ml: { md: 2 },
+          borderLeft: { md: `1px solid ${isDark ? '#2D3B35' : '#E5E7EB'}` },
+          maxWidth: '100%',
+          overflow: 'hidden',
+        }}
+      >
         {/* Introducao */}
         <Box id="introducao" sx={{ scrollMarginTop: '100px', mb: 6 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
@@ -62,8 +73,31 @@ function ApiDocsPage() {
             API RESTful pública para classificação de doenças foliares em soja.
             Integre o poder do diagnóstico fitossanitário do Zé Praga em seus próprios sistemas.
           </Typography>
-          <Alert severity="info" sx={{ borderRadius: 2 }}>
-            URL Base: <code style={{ fontWeight: 600 }}>{BASE_URL}</code>
+          <Alert
+            severity="info"
+            sx={{
+              borderRadius: 2,
+              border: `1px solid ${isDark ? '#2D3B35' : '#B6E3CD'}`,
+              backgroundColor: isDark ? '#132218' : '#EAF7EF',
+              color: isDark ? '#E8F5E9' : '#1A1A2E',
+              '& .MuiAlert-icon': {
+                color: isDark ? '#52B788' : '#2D6A4F',
+              },
+            }}
+          >
+            URL Base:{' '}
+            <code
+              style={{
+                fontWeight: 600,
+                color: isDark ? '#D1E7D4' : '#1B4332',
+                backgroundColor: isDark ? '#0D1B12' : '#FFFFFF',
+                border: `1px solid ${isDark ? '#2D3B35' : '#B6E3CD'}`,
+                borderRadius: 6,
+                padding: '2px 6px',
+              }}
+            >
+              {BASE_URL}
+            </code>
           </Alert>
         </Box>
 
@@ -433,12 +467,15 @@ puts JSON.parse(res.body)["status"]`,
                 textAlign: 'left',
                 py: 1.5,
                 px: 2,
-                borderBottom: '1px solid #E5E7EB',
+                borderBottom: `1px solid ${isDark ? '#2D3B35' : '#E5E7EB'}`,
               },
               '& th': {
                 fontWeight: 600,
-                backgroundColor: '#F8F9FA',
+                backgroundColor: isDark ? '#132218' : '#F8F9FA',
                 color: 'text.secondary',
+              },
+              '& td': {
+                backgroundColor: isDark ? '#0D1B12' : 'transparent',
               },
             }}
           >
@@ -459,7 +496,17 @@ puts JSON.parse(res.body)["status"]`,
               ].map((err) => (
                 <tr key={err.code}>
                   <td>
-                    <Chip label={err.code} size="small" sx={{ fontFamily: 'monospace', fontWeight: 600 }} />
+                    <Chip
+                      label={err.code}
+                      size="small"
+                      sx={{
+                        fontFamily: 'monospace',
+                        fontWeight: 600,
+                        backgroundColor: isDark ? '#132218' : undefined,
+                        color: isDark ? '#E8F5E9' : undefined,
+                        border: isDark ? '1px solid #2D3B35' : undefined,
+                      }}
+                    />
                   </td>
                   <td>{err.desc}</td>
                 </tr>
