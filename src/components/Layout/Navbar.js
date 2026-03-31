@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,9 +14,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import { Menu, Leaf, MessageCircle, History, BookOpen, Info, ArrowRight, Cpu, Moon, Sun } from 'lucide-react';
-import { ColorModeContext } from '../../ColorModeContext';
+import { useColorMode } from '../../hooks/useColorMode';
 
 const navLinks = [
   { label: 'Como Funciona', path: '/#como-funciona' },
@@ -39,7 +39,7 @@ function Navbar() {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { toggleColorMode, mode } = useContext(ColorModeContext);
+  const { toggleColorMode, mode } = useColorMode();
 
   const navigate = useNavigate();
 
@@ -85,7 +85,7 @@ function Navbar() {
               variant="h6"
               sx={{
                 fontWeight: 700,
-                color: 'primary.dark',
+                color: 'text.primary',
                 letterSpacing: '-0.02em',
               }}
             >
@@ -157,11 +157,19 @@ function Navbar() {
         anchor="left"
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
+        PaperProps={{
+          sx: {
+            backgroundColor: 'background.paper',
+            color: 'text.primary',
+            borderRight: '1px solid',
+            borderColor: 'divider',
+          },
+        }}
       >
         <Box sx={{ width: 280, pt: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 2, pb: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 2, pb: 2, borderBottom: '1px solid', borderColor: 'divider' }}>
             <Leaf size={24} color={theme.palette.primary.main} />
-            <Typography variant="h6" sx={{ fontWeight: 700, color: 'primary.dark' }}>
+            <Typography variant="h6" sx={{ fontWeight: 700, color: 'text.primary' }}>
               Zé Praga
             </Typography>
           </Box>
@@ -176,9 +184,20 @@ function Navbar() {
                   sx={{
                     borderRadius: 2,
                     mx: 1,
+                    color: 'text.secondary',
+                    '&:hover': {
+                      backgroundColor: 'action.hover',
+                      color: 'text.primary',
+                    },
                     '&.Mui-selected': {
-                      backgroundColor: 'rgba(45, 106, 79, 0.08)',
-                      color: 'primary.main',
+                      backgroundColor: alpha(theme.palette.primary.main, 0.12),
+                      color: 'text.primary',
+                      fontWeight: 600,
+                      borderLeft: '3px solid',
+                      borderLeftColor: 'primary.main',
+                    },
+                    '&.Mui-selected:hover': {
+                      backgroundColor: alpha(theme.palette.primary.main, 0.16),
                     },
                   }}
                 >
@@ -190,7 +209,7 @@ function Navbar() {
               </ListItem>
             ))}
           </List>
-          <Box sx={{ px: 2, pt: 2 }}>
+          <Box sx={{ px: 2, pt: 2, borderTop: '1px solid', borderColor: 'divider', mt: 1 }}>
             <Button
               component={Link}
               to="/chat"
@@ -210,3 +229,5 @@ function Navbar() {
 }
 
 export default Navbar;
+
+
