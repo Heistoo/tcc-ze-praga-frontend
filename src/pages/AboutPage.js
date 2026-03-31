@@ -11,10 +11,11 @@ import { Leaf, Target, Users, GraduationCap, ArrowRight, Globe, Workflow } from 
 import ApplicationFlowGraph from '../components/About/ApplicationFlowGraph';
 
 const teamMembers = [
-  { name: 'Felipe Carillo', role: 'Desenvolvedor Frontend' },
-  { name: 'Membro 2', role: 'Desenvolvedor Backend' },
-  { name: 'Membro 3', role: 'Machine Learning' },
-  { name: 'Membro 4', role: 'Dados e Pesquisa' },
+  { name: 'Breno Coutinho Rodrigues', role: 'Desenvolvedor' },
+  { name: 'Felipe Carillo', role: 'Desenvolvedor' },
+  { name: 'Gabriel Soares Teixeira', role: 'Desenvolvedor' },
+  { name: 'João Pedro Galhardo', role: 'Desenvolvedor' },
+  { name: 'Luca Pinheiro Gomes', role: 'Desenvolvedor' },
 ];
 
 function AboutPage() {
@@ -105,38 +106,45 @@ function AboutPage() {
             Equipe
           </Typography>
         </Box>
-        <Grid container spacing={2}>
+        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
           {teamMembers.map((member) => (
-            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={member.name}>
-              <Card sx={{ p: 3, textAlign: 'center' }}>
-                <Box
-                  sx={{
-                    width: 64,
-                    height: 64,
-                    borderRadius: '50%',
-                    backgroundColor: 'rgba(45, 106, 79, 0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mx: 'auto',
-                    mb: 2,
-                    fontSize: '1.5rem',
-                    fontWeight: 700,
-                    color: 'primary.main',
-                  }}
-                >
-                  {member.name.charAt(0)}
-                </Box>
-                <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                  {member.name}
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  {member.role}
-                </Typography>
-              </Card>
-            </Grid>
+            <Card
+              key={member.name}
+              sx={{
+                p: 3,
+                textAlign: 'center',
+                flex: { xs: '1 1 calc(50% - 16px)', sm: '1 1 calc(33.333% - 16px)', md: '1 1 0' },
+                maxWidth: { md: 'calc(20% - 13px)' },
+                minWidth: 140,
+              }}
+            >
+              <Box
+                sx={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(45, 106, 79, 0.1)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mx: 'auto',
+                  mb: 2,
+                  fontSize: '1.5rem',
+                  fontWeight: 700,
+                  color: 'primary.main',
+                }}
+              >
+                {member.name.charAt(0)}
+              </Box>
+              <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                {member.name}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {member.role}
+              </Typography>
+            </Card>
           ))}
-        </Grid>
+        </Box>
       </Box>
 
       {/* Institution */}
@@ -144,12 +152,15 @@ function AboutPage() {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
           <GraduationCap size={22} color="#2D6A4F" />
           <Typography variant="h5" sx={{ fontWeight: 600 }}>
-            Instituição
+            Instituição e Orientação
           </Typography>
         </Box>
         <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8, mb: 2 }}>
-          Este projeto foi desenvolvido no Instituto Mauá de Tecnologia (IMT),
-          como parte do curso de Ciência da Computação, sob orientação acadêmica.
+          Este projeto foi desenvolvido no Centro Universitário do Instituto Mauá de Tecnologia (IMT),
+          como Trabalho de Conclusão de Curso em Ciência da Computação.
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+          <strong>Orientadores:</strong> Prof. Alexsander Tressino de Carvalho e Prof. Gabriel de Souza Lima
         </Typography>
       </Box>
 

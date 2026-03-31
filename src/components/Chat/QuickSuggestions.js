@@ -4,8 +4,8 @@ import Chip from '@mui/material/Chip';
 import { Camera, HelpCircle, Info } from 'lucide-react';
 
 const suggestions = [
-  { label: 'Enviar foto', icon: Camera, action: 'upload' },
-  { label: 'O que voce detecta?', icon: HelpCircle },
+  { label: 'Enviar foto da folha', icon: Camera, action: 'upload' },
+  { label: 'O que você detecta?', icon: HelpCircle },
   { label: 'Como funciona?', icon: Info },
 ];
 

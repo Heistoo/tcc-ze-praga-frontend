@@ -14,10 +14,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import { Menu, Leaf, MessageCircle, History, BookOpen, Info, ArrowRight } from 'lucide-react';
+import { Menu, Leaf, MessageCircle, History, BookOpen, Info, ArrowRight, Cpu } from 'lucide-react';
 
 const navLinks = [
   { label: 'Como Funciona', path: '/#como-funciona' },
+  { label: 'Modelos', path: '/modelos', icon: <Cpu size={18} /> },
   { label: 'API', path: '/api-docs', icon: <BookOpen size={18} /> },
   { label: 'Sobre', path: '/sobre', icon: <Info size={18} /> },
 ];
@@ -26,6 +27,7 @@ const mobileNavItems = [
   { label: 'Início', path: '/', icon: <Leaf size={20} /> },
   { label: 'Chat', path: '/chat', icon: <MessageCircle size={20} /> },
   { label: 'Histórico', path: '/historico', icon: <History size={20} /> },
+  { label: 'Modelos', path: '/modelos', icon: <Cpu size={20} /> },
   { label: 'API Docs', path: '/api-docs', icon: <BookOpen size={20} /> },
   { label: 'Sobre', path: '/sobre', icon: <Info size={20} /> },
 ];

@@ -14,7 +14,7 @@ function useChat() {
   ]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const send = useCallback(async (text, imageFile = null) => {
+  const send = useCallback(async (text, imageFile = null, modelId = 'ensemble') => {
     const userMessage = {
       id: uuidv4(),
       role: 'user',
@@ -31,7 +31,7 @@ function useChat() {
         content: m.content,
       }));
 
-      const response = await sendMessage(allMessages, imageFile);
+      const response = await sendMessage(allMessages, imageFile, modelId);
 
       const assistantMessage = {
         id: uuidv4(),

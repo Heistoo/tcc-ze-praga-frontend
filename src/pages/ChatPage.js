@@ -54,7 +54,7 @@ function ChatPage() {
 
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith('image/')) {
-      send('', file);
+      send('', file, 'ensemble');
     }
   };
 

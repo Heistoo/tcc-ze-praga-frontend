@@ -7,6 +7,7 @@ import HistoryPage from './pages/HistoryPage';
 import DiagnosisDetailPage from './pages/DiagnosisDetailPage';
 import ApiDocsPage from './pages/ApiDocsPage';
 import AboutPage from './pages/AboutPage';
+import ModelsPage from './pages/ModelsPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/historico" element={<Layout><HistoryPage /></Layout>} />
         <Route path="/historico/:id" element={<Layout><DiagnosisDetailPage /></Layout>} />
         <Route path="/api-docs" element={<Layout><ApiDocsPage /></Layout>} />
+        <Route path="/modelos" element={<Layout><ModelsPage /></Layout>} />
         <Route path="/sobre" element={<Layout><AboutPage /></Layout>} />
       </Routes>
     </BrowserRouter>
