@@ -2,7 +2,6 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import { Camera, HelpCircle, Info } from 'lucide-react';
-import { useDarkMode } from '../../hooks/useDarkMode';
 
 const suggestions = [
   { label: 'Enviar foto da folha', icon: Camera, action: 'upload' },
@@ -11,8 +10,6 @@ const suggestions = [
 ];
 
 function QuickSuggestions({ onSend, onUploadClick }) {
-  const isDark = useDarkMode();
-
   const handleClick = (suggestion) => {
     if (suggestion.action === 'upload' && onUploadClick) {
       onUploadClick();
@@ -41,18 +38,18 @@ function QuickSuggestions({ onSend, onUploadClick }) {
             onClick={() => handleClick(suggestion)}
             variant="outlined"
             sx={{
-              borderColor: isDark ? '#2D3B35' : 'primary.light',
-              color: isDark ? '#E8F5E9' : 'primary.main',
-              backgroundColor: isDark ? '#132218' : 'transparent',
+              borderColor: 'divider',
+              color: 'text.primary',
+              backgroundColor: 'background.paper',
               fontWeight: 500,
               cursor: 'pointer',
               transition: 'all 0.2s',
               '&:hover': {
-                backgroundColor: isDark ? 'rgba(45, 106, 79, 0.22)' : 'rgba(45, 106, 79, 0.08)',
-                borderColor: isDark ? '#52B788' : 'primary.main',
+                backgroundColor: 'action.hover',
+                borderColor: 'primary.light',
               },
               '& .MuiChip-icon': {
-                color: isDark ? '#9ED8B8' : 'primary.main',
+                color: 'primary.main',
               },
             }}
           />

@@ -7,7 +7,6 @@ import { BookOpen, Server, Key, Zap, AlertTriangle, Gauge } from 'lucide-react';
 import EndpointCard from '../components/ApiDocs/EndpointCard';
 import CodeBlock from '../components/ApiDocs/CodeBlock';
 import ApiSidebar from '../components/ApiDocs/ApiSidebar';
-import { useDarkMode } from '../hooks/useDarkMode';
 
 const BASE_URL = 'https://api.zepraga.com.br/api/v1';
 
@@ -23,7 +22,6 @@ const SECTIONS = [
 ];
 
 function ApiDocsPage() {
-  const isDark = useDarkMode();
   const [activeSection, setActiveSection] = useState('introducao');
   const observerRef = useRef(null);
 
@@ -56,7 +54,8 @@ function ApiDocsPage() {
           flex: 1,
           pl: { md: 4 },
           ml: { md: 2 },
-          borderLeft: { md: `1px solid ${isDark ? '#2D3B35' : '#E5E7EB'}` },
+          borderLeft: { md: '1px solid' },
+          borderColor: 'divider',
           maxWidth: '100%',
           overflow: 'hidden',
         }}
@@ -77,27 +76,31 @@ function ApiDocsPage() {
             severity="info"
             sx={{
               borderRadius: 2,
-              border: `1px solid ${isDark ? '#2D3B35' : '#B6E3CD'}`,
-              backgroundColor: isDark ? '#132218' : '#EAF7EF',
-              color: isDark ? '#E8F5E9' : '#1A1A2E',
+              border: '1px solid',
+              borderColor: 'divider',
+              backgroundColor: 'surface.elevated',
+              color: 'text.primary',
               '& .MuiAlert-icon': {
-                color: isDark ? '#52B788' : '#2D6A4F',
+                color: 'primary.main',
               },
             }}
           >
             URL Base:{' '}
-            <code
-              style={{
+            <Box
+              component="code"
+              sx={{
                 fontWeight: 600,
-                color: isDark ? '#D1E7D4' : '#1B4332',
-                backgroundColor: isDark ? '#0D1B12' : '#FFFFFF',
-                border: `1px solid ${isDark ? '#2D3B35' : '#B6E3CD'}`,
-                borderRadius: 6,
-                padding: '2px 6px',
+                color: 'text.primary',
+                backgroundColor: 'surface.sunken',
+                border: '1px solid',
+                borderColor: 'divider',
+                borderRadius: 1,
+                px: 0.75,
+                py: 0.25,
               }}
             >
               {BASE_URL}
-            </code>
+            </Box>
           </Alert>
         </Box>
 
@@ -467,15 +470,16 @@ puts JSON.parse(res.body)["status"]`,
                 textAlign: 'left',
                 py: 1.5,
                 px: 2,
-                borderBottom: `1px solid ${isDark ? '#2D3B35' : '#E5E7EB'}`,
+                borderBottom: '1px solid',
+                borderBottomColor: 'divider',
               },
               '& th': {
                 fontWeight: 600,
-                backgroundColor: isDark ? '#132218' : '#F8F9FA',
+                backgroundColor: 'surface.elevated',
                 color: 'text.secondary',
               },
               '& td': {
-                backgroundColor: isDark ? '#0D1B12' : 'transparent',
+                backgroundColor: 'surface.sunken',
               },
             }}
           >
@@ -502,9 +506,10 @@ puts JSON.parse(res.body)["status"]`,
                       sx={{
                         fontFamily: 'monospace',
                         fontWeight: 600,
-                        backgroundColor: isDark ? '#132218' : undefined,
-                        color: isDark ? '#E8F5E9' : undefined,
-                        border: isDark ? '1px solid #2D3B35' : undefined,
+                        backgroundColor: 'surface.elevated',
+                        color: 'text.primary',
+                        border: '1px solid',
+                        borderColor: 'divider',
                       }}
                     />
                   </td>

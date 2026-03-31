@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDarkMode } from '../../hooks/useDarkMode';
 import {
   ReactFlow,
   Background,
@@ -16,6 +15,7 @@ import '@xyflow/react/dist/style.css';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { UserRound, Camera, Upload, Brain, Search, Sparkles, FileCheck } from 'lucide-react';
+import { useTheme } from '@mui/material/styles';
 
 const iconMap = {
   user: UserRound,
@@ -28,12 +28,12 @@ const iconMap = {
 };
 
 function FlowNode({ data }) {
-  const isDark = useDarkMode();
+  const theme = useTheme();
   const Icon = iconMap[data.icon];
-  const nodeBackgroundColor = isDark ? '#0D1B12' : '#FFFFFF';
-  const nodeBorderColor = isDark ? '#2D3B35' : '#E5E7EB';
-  const nodeTitleColor = isDark ? '#E8F5E9' : '#1A1A2E';
-  const nodeDescriptionColor = isDark ? '#9CA3AF' : '#6B7280';
+  const nodeBackgroundColor = theme.palette.surface.sunken;
+  const nodeBorderColor = theme.palette.divider;
+  const nodeTitleColor = theme.palette.text.primary;
+  const nodeDescriptionColor = theme.palette.text.secondary;
 
   return (
     <Box
@@ -45,7 +45,7 @@ function FlowNode({ data }) {
         p: 2,
         width: 170,
         textAlign: 'center',
-        boxShadow: isDark ? '0 4px 14px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.06)',
+        boxShadow: theme.palette.mode === 'dark' ? '0 4px 14px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.06)',
         position: 'relative',
       }}
     >
@@ -125,7 +125,7 @@ function FlowLabelEdge({
   data,
   animated,
 }) {
-  const isDark = useDarkMode();
+  const theme = useTheme();
   const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX,
     sourceY,
@@ -154,9 +154,9 @@ function FlowLabelEdge({
             borderRadius: 1,
             fontSize: '0.67rem',
             fontWeight: 600,
-            color: isDark ? '#E8F5E9' : '#1A1A2E',
-            backgroundColor: isDark ? '#132218' : '#FFFFFF',
-            border: `1px solid ${isDark ? '#2D3B35' : '#E5E7EB'}`,
+            color: theme.palette.text.primary,
+            backgroundColor: theme.palette.background.paper,
+            border: `1px solid ${theme.palette.divider}`,
             pointerEvents: 'none',
             zIndex: 1000,
             whiteSpace: 'nowrap',
@@ -227,7 +227,7 @@ const initialEdges = [
 ];
 
 function ApplicationFlowGraph() {
-  const isDark = useDarkMode();
+  const theme = useTheme();
   
   const [nodes] = useNodesState(initialNodes);
   const [edges] = useEdgesState(initialEdges);
@@ -239,27 +239,30 @@ function ApplicationFlowGraph() {
         height: 450,
         position: 'relative',
         borderRadius: 3,
-        border: `1px solid ${isDark ? '#2D3B35' : '#E5E7EB'}`,
-        backgroundColor: isDark ? '#0D1B12' : '#FAFDF7',
+        border: '1px solid',
+        borderColor: 'divider',
+        backgroundColor: 'background.default',
         overflow: 'hidden',
         '& .react-flow__controls': {
-          backgroundColor: isDark ? '#0B1710' : '#FFFFFF',
-          border: `1px solid ${isDark ? '#2D3B35' : '#E5E7EB'}`,
-          boxShadow: isDark ? '0 4px 14px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.08)',
+          backgroundColor: 'background.paper',
+          border: '1px solid',
+          borderColor: 'divider',
+          boxShadow: theme.palette.mode === 'dark' ? '0 4px 14px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.08)',
           borderRadius: 10,
           overflow: 'hidden',
         },
         '& .react-flow__controls-button': {
-          backgroundColor: isDark ? '#132218' : '#FFFFFF',
-          borderBottom: `1px solid ${isDark ? '#2D3B35' : '#E5E7EB'}`,
-          color: isDark ? '#E8F5E9' : '#4B5563',
+          backgroundColor: 'background.paper',
+          borderBottom: '1px solid',
+          borderBottomColor: 'divider',
+          color: 'text.primary',
           transition: 'background-color 0.2s ease',
         },
         '& .react-flow__controls-button:last-child': {
           borderBottom: 'none',
         },
         '& .react-flow__controls-button:hover': {
-          backgroundColor: isDark ? '#1A3A27' : '#F3F4F6',
+          backgroundColor: 'action.hover',
         },
         '& .react-flow__controls-button svg': {
           fill: 'currentColor',
@@ -282,7 +285,7 @@ function ApplicationFlowGraph() {
         preventScrolling={false}
         proOptions={{ hideAttribution: true }}
       >
-        <Background color={isDark ? '#2D3B35' : '#E5E7EB'} gap={20} size={1} />
+        <Background color={theme.palette.divider} gap={20} size={1} />
         <Controls
           showInteractiveButton={false}
           showZoom={true}
