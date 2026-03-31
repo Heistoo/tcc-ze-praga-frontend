@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getDiagnoses, deleteDiagnosis } from '../services/historyService';
+import { getDiagnoses, deleteDiagnosis, clearAllDiagnoses } from '../services/historyService';
 
 function useHistory() {
   const [diagnoses, setDiagnoses] = useState([]);
@@ -32,7 +32,16 @@ function useHistory() {
     }
   }, []);
 
-  return { diagnoses, loading, error, reload: load, remove };
+  const clearAll = useCallback(async () => {
+    try {
+      await clearAllDiagnoses();
+      setDiagnoses([]);
+    } catch {
+      setError('Erro ao limpar historico.');
+    }
+  }, []);
+
+  return { diagnoses, loading, error, reload: load, remove, clearAll };
 }
 
 export default useHistory;

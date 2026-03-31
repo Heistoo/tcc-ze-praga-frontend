@@ -7,3 +7,5 @@ export const getDiagnosisById = (id) => mockHistory.getById(id);
 export const saveDiagnosis = (diagnosis) => mockHistory.save(diagnosis);
 
 export const deleteDiagnosis = (id) => mockHistory.remove(id);
+
+export const clearAllDiagnoses = () => mockHistory.clearAll();

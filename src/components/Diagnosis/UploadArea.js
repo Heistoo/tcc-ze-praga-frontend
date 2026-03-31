@@ -3,8 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SearchIcon from '@mui/icons-material/Search';
+import { Trash2, Search } from 'lucide-react';
 import ImageDropzone from '../common/ImageDropzone';
 
 function UploadArea({ imagePreview, isAnalyzing, onImageSelect, onAnalyze, onReset }) {
@@ -19,10 +18,9 @@ function UploadArea({ imagePreview, isAnalyzing, onImageSelect, onAnalyze, onRes
           textAlign: 'center',
           mb: 2,
           p: 2,
-          border: '1px solid',
-          borderColor: 'grey.300',
-          borderRadius: 2,
-          bgcolor: 'grey.50',
+          border: '1px solid #E5E7EB',
+          borderRadius: 3,
+          bgcolor: '#F8F9FA',
         }}
       >
         <Box
@@ -33,7 +31,7 @@ function UploadArea({ imagePreview, isAnalyzing, onImageSelect, onAnalyze, onRes
             maxWidth: '100%',
             maxHeight: 350,
             objectFit: 'contain',
-            borderRadius: 1,
+            borderRadius: 2,
           }}
         />
       </Box>
@@ -42,7 +40,7 @@ function UploadArea({ imagePreview, isAnalyzing, onImageSelect, onAnalyze, onRes
           variant="contained"
           color="primary"
           size="large"
-          startIcon={isAnalyzing ? <CircularProgress size={20} color="inherit" /> : <SearchIcon />}
+          startIcon={isAnalyzing ? <CircularProgress size={20} color="inherit" /> : <Search size={18} />}
           onClick={onAnalyze}
           disabled={isAnalyzing}
         >
@@ -51,7 +49,7 @@ function UploadArea({ imagePreview, isAnalyzing, onImageSelect, onAnalyze, onRes
         <Button
           variant="outlined"
           color="error"
-          startIcon={<DeleteIcon />}
+          startIcon={<Trash2 size={18} />}
           onClick={onReset}
           disabled={isAnalyzing}
         >

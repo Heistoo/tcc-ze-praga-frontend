@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -14,16 +14,20 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
-import BugReportIcon from '@mui/icons-material/BugReport';
-import HomeIcon from '@mui/icons-material/Home';
-import ChatIcon from '@mui/icons-material/Chat';
-import HistoryIcon from '@mui/icons-material/History';
+import { Menu, Leaf, MessageCircle, History, BookOpen, Info, ArrowRight } from 'lucide-react';
 
-const navItems = [
-  { label: 'Inicio', path: '/', icon: <HomeIcon /> },
-  { label: 'Chat', path: '/chat', icon: <ChatIcon /> },
-  { label: 'Historico', path: '/historico', icon: <HistoryIcon /> },
+const navLinks = [
+  { label: 'Como Funciona', path: '/#como-funciona' },
+  { label: 'API', path: '/api-docs', icon: <BookOpen size={18} /> },
+  { label: 'Sobre', path: '/sobre', icon: <Info size={18} /> },
+];
+
+const mobileNavItems = [
+  { label: 'Inicio', path: '/', icon: <Leaf size={20} /> },
+  { label: 'Chat', path: '/chat', icon: <MessageCircle size={20} /> },
+  { label: 'Historico', path: '/historico', icon: <History size={20} /> },
+  { label: 'API Docs', path: '/api-docs', icon: <BookOpen size={20} /> },
+  { label: 'Sobre', path: '/sobre', icon: <Info size={20} /> },
 ];
 
 function Navbar() {
@@ -32,53 +36,96 @@ function Navbar() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
+  const navigate = useNavigate();
+
+  const handleNavClick = (path) => {
+    if (path.startsWith('/#')) {
+      const id = path.substring(2);
+      if (location.pathname !== '/') {
+        navigate('/', { state: { scrollTo: id } });
+      } else {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <>
-      <AppBar position="sticky" color="primary" elevation={1}>
-        <Toolbar>
+      <AppBar position="sticky" elevation={0}>
+        <Toolbar sx={{ maxWidth: 1200, width: '100%', mx: 'auto', px: { xs: 2, md: 3 } }}>
           {isMobile && (
             <IconButton
-              color="inherit"
               edge="start"
               onClick={() => setDrawerOpen(true)}
-              sx={{ mr: 1 }}
+              sx={{ mr: 1, color: 'text.primary' }}
             >
-              <MenuIcon />
+              <Menu size={24} />
             </IconButton>
           )}
-          <BugReportIcon sx={{ mr: 1 }} />
-          <Typography
-            variant="h6"
+          <Box
             component={Link}
             to="/"
             sx={{
-              flexGrow: 1,
+              display: 'flex',
+              alignItems: 'center',
               textDecoration: 'none',
-              color: 'inherit',
+              color: 'primary.main',
+              flexGrow: 1,
+              gap: 1,
             }}
           >
-            Ze Praga
-          </Typography>
+            <Leaf size={28} />
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: 700,
+                color: 'primary.dark',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Ze Praga
+            </Typography>
+          </Box>
           {!isMobile && (
-            <Box sx={{ display: 'flex', gap: 1 }}>
-              {navItems.map((item) => (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              {navLinks.map((item) => (
                 <Button
                   key={item.path}
-                  component={Link}
-                  to={item.path}
-                  color="inherit"
-                  startIcon={item.icon}
+                  component={item.path.startsWith('/#') ? 'button' : Link}
+                  to={item.path.startsWith('/#') ? undefined : item.path}
+                  onClick={() => handleNavClick(item.path)}
                   sx={{
-                    opacity: location.pathname === item.path ? 1 : 0.8,
-                    borderBottom: location.pathname === item.path
-                      ? '2px solid white'
-                      : '2px solid transparent',
-                    borderRadius: 0,
+                    color: 'text.secondary',
+                    fontWeight: 500,
+                    fontSize: '0.9rem',
+                    '&:hover': {
+                      color: 'primary.main',
+                      backgroundColor: 'transparent',
+                    },
+                    ...(location.pathname === item.path && {
+                      color: 'primary.main',
+                      fontWeight: 600,
+                    }),
                   }}
                 >
                   {item.label}
                 </Button>
               ))}
+              <Button
+                component={Link}
+                to="/chat"
+                variant="contained"
+                color="primary"
+                endIcon={<ArrowRight size={18} />}
+                sx={{
+                  ml: 1,
+                  borderRadius: 24,
+                  px: 3,
+                }}
+              >
+                Iniciar Diagnostico
+              </Button>
             </Box>
           )}
         </Toolbar>
@@ -88,25 +135,51 @@ function Navbar() {
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       >
-        <Box sx={{ width: 250, pt: 2 }}>
-          <Typography variant="h6" sx={{ px: 2, pb: 2, fontWeight: 700 }}>
-            Ze Praga
-          </Typography>
+        <Box sx={{ width: 280, pt: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 2, pb: 2 }}>
+            <Leaf size={24} color={theme.palette.primary.main} />
+            <Typography variant="h6" sx={{ fontWeight: 700, color: 'primary.dark' }}>
+              Ze Praga
+            </Typography>
+          </Box>
           <List>
-            {navItems.map((item) => (
+            {mobileNavItems.map((item) => (
               <ListItem key={item.path} disablePadding>
                 <ListItemButton
                   component={Link}
                   to={item.path}
                   selected={location.pathname === item.path}
                   onClick={() => setDrawerOpen(false)}
+                  sx={{
+                    borderRadius: 2,
+                    mx: 1,
+                    '&.Mui-selected': {
+                      backgroundColor: 'rgba(45, 106, 79, 0.08)',
+                      color: 'primary.main',
+                    },
+                  }}
                 >
-                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemIcon sx={{ minWidth: 40, color: 'inherit' }}>
+                    {item.icon}
+                  </ListItemIcon>
                   <ListItemText primary={item.label} />
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
+          <Box sx={{ px: 2, pt: 2 }}>
+            <Button
+              component={Link}
+              to="/chat"
+              variant="contained"
+              color="primary"
+              fullWidth
+              endIcon={<ArrowRight size={18} />}
+              onClick={() => setDrawerOpen(false)}
+            >
+              Iniciar Diagnostico
+            </Button>
+          </Box>
         </Box>
       </Drawer>
     </>

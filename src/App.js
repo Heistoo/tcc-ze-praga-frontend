@@ -1,20 +1,23 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Layout/Navbar';
-import HomePage from './pages/HomePage';
+import Layout from './components/Layout/Layout';
+import LandingPage from './pages/LandingPage';
 import ChatPage from './pages/ChatPage';
 import HistoryPage from './pages/HistoryPage';
 import DiagnosisDetailPage from './pages/DiagnosisDetailPage';
+import ApiDocsPage from './pages/ApiDocsPage';
+import AboutPage from './pages/AboutPage';
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/historico" element={<HistoryPage />} />
-        <Route path="/historico/:id" element={<DiagnosisDetailPage />} />
+        <Route path="/" element={<Layout><LandingPage /></Layout>} />
+        <Route path="/chat" element={<Layout showFooter={false}><ChatPage /></Layout>} />
+        <Route path="/historico" element={<Layout><HistoryPage /></Layout>} />
+        <Route path="/historico/:id" element={<Layout><DiagnosisDetailPage /></Layout>} />
+        <Route path="/api-docs" element={<Layout><ApiDocsPage /></Layout>} />
+        <Route path="/sobre" element={<Layout><AboutPage /></Layout>} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,38 +1,42 @@
 import React, { useRef, useEffect } from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
 import ChatMessage from './ChatMessage';
+import TypingIndicator from './TypingIndicator';
+import QuickSuggestions from './QuickSuggestions';
 
-function ChatWindow({ messages, isLoading }) {
+function ChatWindow({ messages, isLoading, onSend, onUploadClick, onSaveDiagnosis }) {
   const bottomRef = useRef(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
+  const showSuggestions = messages.length <= 1;
+
   return (
     <Box
+      role="log"
+      aria-label="Mensagens do chat"
       sx={{
         flexGrow: 1,
         overflowY: 'auto',
-        p: 2,
-        bgcolor: 'background.default',
-        borderRadius: 1,
+        p: { xs: 2, md: 3 },
+        backgroundColor: '#FAFDF7',
       }}
     >
       {messages.map((message) => (
-        <ChatMessage key={message.id} message={message} />
+        <ChatMessage
+          key={message.id}
+          message={message}
+          onSaveDiagnosis={onSaveDiagnosis}
+        />
       ))}
 
-      {isLoading && (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-          <CircularProgress size={20} />
-          <Typography variant="body2" color="text.secondary">
-            Ze Praga esta analisando...
-          </Typography>
-        </Box>
+      {showSuggestions && !isLoading && (
+        <QuickSuggestions onSend={onSend} onUploadClick={onUploadClick} />
       )}
+
+      {isLoading && <TypingIndicator />}
 
       <div ref={bottomRef} />
     </Box>

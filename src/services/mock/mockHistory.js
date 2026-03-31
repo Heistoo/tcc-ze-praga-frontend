@@ -47,3 +47,9 @@ export async function remove(id) {
   writeStorage(filtered);
   return true;
 }
+
+export async function clearAll() {
+  await delay(300);
+  writeStorage([]);
+  return true;
+}

@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { ArrowLeft } from 'lucide-react';
 import DiagnosisResult from '../components/Diagnosis/DiagnosisResult';
 import { getDiagnosisById } from '../services/historyService';
 
@@ -38,9 +38,9 @@ function DiagnosisDetailPage() {
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Button
-        startIcon={<ArrowBackIcon />}
+        startIcon={<ArrowLeft size={18} />}
         onClick={() => navigate('/historico')}
-        sx={{ mb: 2 }}
+        sx={{ mb: 2, color: 'text.secondary' }}
       >
         Voltar ao Historico
       </Button>

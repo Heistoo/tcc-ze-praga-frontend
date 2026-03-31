@@ -1,75 +1,132 @@
-import React, { useState } from 'react';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
+import React, { useState, useCallback, useRef } from 'react';
 import Box from '@mui/material/Box';
-import Snackbar from '@mui/material/Snackbar';
+import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
-import SaveIcon from '@mui/icons-material/Save';
+import Snackbar from '@mui/material/Snackbar';
 import Tooltip from '@mui/material/Tooltip';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, Leaf, History, Plus } from 'lucide-react';
 import ChatWindow from '../components/Chat/ChatWindow';
 import ChatInput from '../components/Chat/ChatInput';
+import DragDropOverlay from '../components/Chat/DragDropOverlay';
 import useChat from '../hooks/useChat';
 import { saveDiagnosis } from '../services/historyService';
 
 function ChatPage() {
   const { messages, isLoading, send, clearChat } = useChat();
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
+  const [isDragging, setIsDragging] = useState(false);
+  const dragCounter = useRef(0);
 
-  const handleSaveDiagnosis = async (diagnosis) => {
+  const handleSaveDiagnosis = useCallback(async (diagnosis) => {
     try {
       await saveDiagnosis(diagnosis);
       setSnackbar({ open: true, message: 'Diagnostico salvo no historico!' });
     } catch {
       setSnackbar({ open: true, message: 'Erro ao salvar.' });
     }
+  }, []);
+
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    dragCounter.current++;
+    if (e.dataTransfer.types.includes('Files')) {
+      setIsDragging(true);
+    }
   };
 
-  const lastDiagnosis = [...messages]
-    .reverse()
-    .find((m) => m.diagnosis)?.diagnosis;
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    dragCounter.current--;
+    if (dragCounter.current === 0) {
+      setIsDragging(false);
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    dragCounter.current = 0;
+    setIsDragging(false);
+
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      send('', file);
+    }
+  };
 
   return (
-    <Container
-      maxWidth="md"
+    <Box
       sx={{
-        py: 2,
         height: 'calc(100vh - 64px)',
         display: 'flex',
         flexDirection: 'column',
+        position: 'relative',
+        maxWidth: 900,
+        mx: 'auto',
+        width: '100%',
       }}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-        <Box sx={{ flexGrow: 1 }} />
-        {lastDiagnosis && (
-          <Tooltip title="Salvar ultimo diagnostico">
-            <IconButton
-              color="primary"
-              onClick={() => handleSaveDiagnosis(lastDiagnosis)}
-            >
-              <SaveIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-        <Tooltip title="Limpar conversa">
-          <IconButton onClick={clearChat} color="error">
-            <DeleteSweepIcon />
+      <DragDropOverlay visible={isDragging} />
+
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
+          px: 2,
+          py: 1.5,
+          borderBottom: '1px solid #E5E7EB',
+          backgroundColor: '#FFFFFF',
+        }}
+      >
+        <IconButton
+          component={Link}
+          to="/"
+          size="small"
+          sx={{ color: 'text.secondary' }}
+          aria-label="Voltar"
+        >
+          <ArrowLeft size={20} />
+        </IconButton>
+        <Leaf size={22} color="#2D6A4F" />
+        <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '1rem', flex: 1 }}>
+          Ze Praga
+        </Typography>
+        <Tooltip title="Historico">
+          <IconButton
+            component={Link}
+            to="/historico"
+            size="small"
+            sx={{ color: 'text.secondary' }}
+          >
+            <History size={20} />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Novo chat">
+          <IconButton
+            onClick={clearChat}
+            size="small"
+            sx={{ color: 'text.secondary' }}
+          >
+            <Plus size={20} />
           </IconButton>
         </Tooltip>
       </Box>
 
-      <Paper
-        elevation={2}
-        sx={{
-          flexGrow: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'hidden',
-          mb: 2,
-        }}
-      >
-        <ChatWindow messages={messages} isLoading={isLoading} />
-      </Paper>
+      <ChatWindow
+        messages={messages}
+        isLoading={isLoading}
+        onSend={send}
+        onSaveDiagnosis={handleSaveDiagnosis}
+      />
 
       <ChatInput onSend={send} disabled={isLoading} />
 
@@ -78,8 +135,9 @@ function ChatPage() {
         autoHideDuration={3000}
         onClose={() => setSnackbar({ open: false, message: '' })}
         message={snackbar.message}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       />
-    </Container>
+    </Box>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import { X } from 'lucide-react';
 
 function ImagePreview({ imageUrl, onRemove }) {
   if (!imageUrl) return null;
@@ -20,9 +20,8 @@ function ImagePreview({ imageUrl, onRemove }) {
         alt="Preview"
         sx={{
           height: 80,
-          borderRadius: 1,
-          border: '1px solid',
-          borderColor: 'grey.300',
+          borderRadius: 2,
+          border: '1px solid #E5E7EB',
         }}
       />
       <IconButton
@@ -32,14 +31,14 @@ function ImagePreview({ imageUrl, onRemove }) {
           position: 'absolute',
           top: -8,
           right: -8,
-          bgcolor: 'error.main',
+          bgcolor: '#E63946',
           color: 'white',
           width: 22,
           height: 22,
-          '&:hover': { bgcolor: 'error.dark' },
+          '&:hover': { bgcolor: '#C1121F' },
         }}
       >
-        <CloseIcon sx={{ fontSize: 14 }} />
+        <X size={12} />
       </IconButton>
     </Box>
   );
