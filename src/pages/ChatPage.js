@@ -21,7 +21,7 @@ function ChatPage() {
   const handleSaveDiagnosis = useCallback(async (diagnosis) => {
     try {
       await saveDiagnosis(diagnosis);
-      setSnackbar({ open: true, message: 'Diagnostico salvo no historico!' });
+      setSnackbar({ open: true, message: 'Diagnóstico salvo no histórico!' });
     } catch {
       setSnackbar({ open: true, message: 'Erro ao salvar.' });
     }
@@ -98,9 +98,9 @@ function ChatPage() {
         </IconButton>
         <Leaf size={22} color="#2D6A4F" />
         <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '1rem', flex: 1 }}>
-          Ze Praga
+          Zé Praga
         </Typography>
-        <Tooltip title="Historico">
+        <Tooltip title="Histórico">
           <IconButton
             component={Link}
             to="/historico"

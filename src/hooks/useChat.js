@@ -8,7 +8,7 @@ function useChat() {
       id: uuidv4(),
       role: 'assistant',
       content:
-        'Ola! Sou o Ze Praga, seu assistente de diagnostico fitossanitario. Envie uma foto da folha de soja para que eu possa analisar, ou pergunte sobre pragas e doencas da cultura.',
+        'Olá! Sou o Zé Praga, seu assistente de diagnóstico fitossanitário. Envie uma foto da folha de soja para que eu possa analisar, ou pergunte sobre pragas e doenças da cultura.',
       diagnosis: null,
     },
   ]);
@@ -18,7 +18,7 @@ function useChat() {
     const userMessage = {
       id: uuidv4(),
       role: 'user',
-      content: text || (imageFile ? 'Imagem enviada para analise' : ''),
+      content: text || (imageFile ? 'Imagem enviada para análise' : ''),
       imageUrl: imageFile ? URL.createObjectURL(imageFile) : null,
     };
 
@@ -60,7 +60,7 @@ function useChat() {
         id: uuidv4(),
         role: 'assistant',
         content:
-          'Ola! Sou o Ze Praga, seu assistente de diagnostico fitossanitario. Envie uma foto da folha de soja para que eu possa analisar, ou pergunte sobre pragas e doencas da cultura.',
+          'Olá! Sou o Zé Praga, seu assistente de diagnóstico fitossanitário. Envie uma foto da folha de soja para que eu possa analisar, ou pergunte sobre pragas e doenças da cultura.',
         diagnosis: null,
       },
     ]);

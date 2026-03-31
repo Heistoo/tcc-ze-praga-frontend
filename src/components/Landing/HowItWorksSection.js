@@ -10,19 +10,19 @@ const steps = [
   {
     icon: Camera,
     title: 'Envie uma Foto',
-    description: 'Tire uma foto da folha ou faca upload de uma imagem da sua galeria.',
+    description: 'Tire uma foto da folha ou faça upload de uma imagem da sua galeria.',
     color: '#2D6A4F',
   },
   {
     icon: Microscope,
-    title: 'Analise com IA',
-    description: 'Nossos modelos de deep learning classificam pragas e doencas automaticamente.',
+    title: 'Análise com IA',
+    description: 'Nossos modelos de deep learning classificam pragas e doenças automaticamente.',
     color: '#52B788',
   },
   {
     icon: ClipboardList,
-    title: 'Plano de Acao',
-    description: 'Receba diagnostico detalhado com recomendacoes de manejo personalizadas.',
+    title: 'Plano de Ação',
+    description: 'Receba diagnóstico detalhado com recomendações de manejo personalizadas.',
     color: '#F4A261',
   },
 ];
@@ -71,7 +71,7 @@ function HowItWorksSection() {
             mx: 'auto',
           }}
         >
-          Tres passos simples para levar tecnologia ao campo
+          Três passos simples para levar tecnologia ao campo
         </Typography>
         <motion.div
           variants={containerVariants}

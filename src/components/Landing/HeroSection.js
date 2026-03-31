@@ -35,7 +35,7 @@ function HeroSection() {
         >
           <Chip
             icon={<Sprout size={16} />}
-            label="Tecnologia acessivel para qualquer produtor"
+            label="Tecnologia acessível para qualquer produtor"
             sx={{
               mb: 3,
               backgroundColor: 'rgba(45, 106, 79, 0.1)',
@@ -58,7 +58,7 @@ function HeroSection() {
               letterSpacing: '-0.02em',
             }}
           >
-            Diagnostico fitossanitario inteligente ao alcance de todos
+            Diagnóstico fitossanitário inteligente ao alcance de todos
           </Typography>
           <Typography
             variant="body1"
@@ -70,8 +70,8 @@ function HeroSection() {
               lineHeight: 1.7,
             }}
           >
-            Hoje detectamos doencas e pragas na soja. Amanha, em qualquer cultivo.
-            Envie uma foto e receba diagnostico com plano de acao — gratis e sem cadastro.
+            Hoje detectamos doenças e pragas na soja. Amanhã, em qualquer cultivo.
+            Envie uma foto e receba diagnóstico com plano de ação — grátis e sem cadastro.
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
             <Button
@@ -83,7 +83,7 @@ function HeroSection() {
               endIcon={<ArrowRight size={20} />}
               sx={{ px: 4, py: 1.5, fontSize: '1rem' }}
             >
-              Comecar Agora
+              Começar Agora
             </Button>
             <Button
               component={Link}
@@ -93,7 +93,7 @@ function HeroSection() {
               size="large"
               sx={{ px: 4, py: 1.5, fontSize: '1rem' }}
             >
-              Ver Documentacao da API
+              Ver Documentação da API
             </Button>
           </Box>
         </motion.div>
@@ -127,7 +127,7 @@ function HeroSection() {
                 <Sprout size={16} color="white" />
               </Box>
               <Box sx={{ backgroundColor: '#F8F9FA', borderRadius: '12px 12px 12px 4px', p: 1.5, fontSize: '0.85rem', color: 'text.primary' }}>
-                Ola! Envie uma foto da folha para analise fitossanitaria.
+                Olá! Envie uma foto da folha para análise fitossanitária.
               </Box>
             </Box>
 
@@ -146,11 +146,11 @@ function HeroSection() {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
                   <FileText size={14} color="#2D6A4F" />
                   <Typography variant="caption" sx={{ fontWeight: 600, color: 'primary.main' }}>
-                    Ferrugem Asiatica — 94.2%
+                    Ferrugem Asiática — 94.2%
                   </Typography>
                 </Box>
                 <Typography variant="caption" color="text.secondary">
-                  Doenca identificada com plano de acao disponivel.
+                  Doença identificada com plano de ação disponível.
                 </Typography>
               </Box>
             </Box>

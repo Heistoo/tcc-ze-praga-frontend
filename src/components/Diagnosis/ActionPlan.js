@@ -8,9 +8,9 @@ import Button from '@mui/material/Button';
 import { CheckCircle2, AlertTriangle, Zap, Map, GraduationCap, BookOpen, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 
 const levels = [
-  { id: 'essencial', label: 'Essencial', icon: Zap, description: 'Acoes imediatas' },
-  { id: 'campo', label: 'Estrategia de Campo', icon: Map, description: 'Manejo completo' },
-  { id: 'especialista', label: 'Visao Especialista', icon: GraduationCap, description: 'Analise tecnica' },
+  { id: 'essencial', label: 'Essencial', icon: Zap, description: 'Ações imediatas' },
+  { id: 'campo', label: 'Estratégia de Campo', icon: Map, description: 'Manejo completo' },
+  { id: 'especialista', label: 'Visão Especialista', icon: GraduationCap, description: 'Análise técnica' },
 ];
 
 function ActionPlan({ actions }) {
@@ -26,13 +26,13 @@ function ActionPlan({ actions }) {
   return (
     <Box>
       <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-        Plano de Acao
+        Plano de Ação
       </Typography>
 
       {isMultiLevel && (
         <Box sx={{ mb: 2.5 }}>
           <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1.5 }}>
-            Selecione o nivel de detalhamento:
+            Selecione o nível de detalhamento:
           </Typography>
           <ToggleButtonGroup
             value={activeLevel}
@@ -127,7 +127,7 @@ function ActionPlan({ actions }) {
       >
         <AlertTriangle size={16} color="#92400E" style={{ marginTop: 2, flexShrink: 0 }} />
         <Typography variant="body2" sx={{ color: '#92400E', fontWeight: 500, fontSize: '0.8rem' }}>
-          Consulte sempre um engenheiro agronomo para orientacao profissional.
+          Consulte sempre um engenheiro agrônomo para orientação profissional.
         </Typography>
       </Box>
 
@@ -146,7 +146,7 @@ function ActionPlan({ actions }) {
               '&:hover': { color: 'primary.main', backgroundColor: 'rgba(45, 106, 79, 0.04)' },
             }}
           >
-            Fontes e Referencias ({sources.length})
+            Fontes e Referências ({sources.length})
           </Button>
           <Collapse in={showSources}>
             <Box

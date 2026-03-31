@@ -23,13 +23,13 @@ function Footer() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
               <Leaf size={24} color="#52B788" />
               <Typography variant="h6" sx={{ fontWeight: 700, color: '#FFFFFF' }}>
-                Ze Praga
+                Zé Praga
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)', lineHeight: 1.8 }}>
-              Plataforma de diagnostico fitossanitario inteligente — hoje focada na soja,
+              Plataforma de diagnóstico fitossanitário inteligente — hoje focada na soja,
               com infraestrutura projetada para expandir a diversos cultivos e democratizar
-              o acesso a tecnologia no campo.
+              o acesso à tecnologia no campo.
             </Typography>
           </Grid>
 
@@ -40,8 +40,8 @@ function Footer() {
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
               {[
                 { label: 'Chat', path: '/chat' },
-                { label: 'Historico', path: '/historico' },
-                { label: 'Documentacao da API', path: '/api-docs' },
+                { label: 'Histórico', path: '/historico' },
+                { label: 'Documentação da API', path: '/api-docs' },
                 { label: 'Sobre o Projeto', path: '/sobre' },
               ].map((link) => (
                 <Typography
@@ -67,7 +67,7 @@ function Footer() {
               Projeto
             </Typography>
             <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)', mb: 2, lineHeight: 1.8 }}>
-              Desenvolvido como Trabalho de Conclusao de Curso no Instituto Maua de Tecnologia — 2026.
+              Desenvolvido como Trabalho de Conclusão de Curso no Instituto Mauá de Tecnologia — 2026.
             </Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
               <IconButton
@@ -131,7 +131,7 @@ function Footer() {
           }}
         >
           <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.5)' }}>
-            &copy; 2026 Grupo Ze Praga — Instituto Maua de Tecnologia
+            &copy; 2026 Grupo Zé Praga — Instituto Mauá de Tecnologia
           </Typography>
         </Box>
       </Box>

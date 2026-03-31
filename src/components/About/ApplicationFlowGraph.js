@@ -122,19 +122,19 @@ const initialNodes = [
     id: 'classification',
     type: 'flowNode',
     position: { x: 690, y: 180 },
-    data: { label: 'Classificacao', description: 'Doenca + confianca + severidade', icon: 'search', color: '#E63946', step: '4' },
+    data: { label: 'Classificação', description: 'Doença + confiança + severidade', icon: 'search', color: '#E63946', step: '4' },
   },
   {
     id: 'llm',
     type: 'flowNode',
     position: { x: 460, y: 180 },
-    data: { label: 'LLM (GPT-4o)', description: 'Plano de acao personalizado', icon: 'sparkles', color: '#7C3AED', step: '5' },
+    data: { label: 'LLM (GPT-4o)', description: 'Plano de ação personalizado', icon: 'sparkles', color: '#7C3AED', step: '5' },
   },
   {
     id: 'result',
     type: 'flowNode',
     position: { x: 230, y: 180 },
-    data: { label: 'Diagnostico', description: 'Resultado + recomendacoes', icon: 'filecheck', color: '#2D6A4F', step: '6' },
+    data: { label: 'Diagnóstico', description: 'Resultado + recomendações', icon: 'filecheck', color: '#2D6A4F', step: '6' },
   },
 ];
 
@@ -145,7 +145,7 @@ const initialEdges = [
   { id: 'e3', source: 'deeplearning', target: 'classification', sourceHandle: 'bottom', targetHandle: 'top', type: 'smoothstep', animated: true, style: { stroke: '#F4A261', strokeWidth: 2 } },
   { id: 'e4', source: 'classification', target: 'llm', type: 'smoothstep', animated: true, style: { stroke: '#E63946', strokeWidth: 2 } },
   { id: 'e5', source: 'llm', target: 'result', type: 'smoothstep', animated: true, style: { stroke: '#7C3AED', strokeWidth: 2 } },
-  { id: 'e6', source: 'result', target: 'user', type: 'smoothstep', animated: false, style: { stroke: '#2D6A4F', strokeWidth: 1.5, strokeDasharray: '6 3' }, label: 'Recebe diagnostico' },
+  { id: 'e6', source: 'result', target: 'user', type: 'smoothstep', animated: false, style: { stroke: '#2D6A4F', strokeWidth: 1.5, strokeDasharray: '6 3' }, label: 'Recebe diagnóstico' },
 ];
 
 function ApplicationFlowGraph() {

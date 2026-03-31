@@ -12,15 +12,15 @@ import { ArrowRight, Brain, Cpu, BarChart3, Zap } from 'lucide-react';
 const techBadges = ['PyTorch', 'FastAPI', 'AWS', 'GPT-4o', 'React'];
 
 const metrics = [
-  { label: 'Acuracia Media', value: 94, color: '#2D6A4F' },
+  { label: 'Acurácia Média', value: 94, color: '#2D6A4F' },
   { label: 'F1-Score', value: 92, color: '#52B788' },
-  { label: 'Precisao', value: 95, color: '#1B4332' },
+  { label: 'Precisão', value: 95, color: '#1B4332' },
 ];
 
 const models = [
-  { name: 'ResNet-50', icon: Brain, desc: 'Rede residual profunda para classificacao robusta' },
-  { name: 'EfficientNet-B4', icon: Zap, desc: 'Eficiencia otimizada entre acuracia e velocidade' },
-  { name: 'ViT-B/16', icon: Cpu, desc: 'Vision Transformer para captura de padroes globais' },
+  { name: 'ResNet-50', icon: Brain, desc: 'Rede residual profunda para classificação robusta' },
+  { name: 'EfficientNet-B4', icon: Zap, desc: 'Eficiência otimizada entre acurácia e velocidade' },
+  { name: 'ViT-B/16', icon: Cpu, desc: 'Vision Transformer para captura de padrões globais' },
 ];
 
 function TechnologySection() {
@@ -54,8 +54,8 @@ function TechnologySection() {
             mx: 'auto',
           }}
         >
-          Modelos de deep learning de ultima geracao treinados com o dataset PlantVillage
-          para classificacao precisa de doencas foliares
+          Modelos de deep learning de última geração treinados com o dataset PlantVillage
+          para classificação precisa de doenças foliares
         </Typography>
 
         <Grid container spacing={4} sx={{ mb: 6 }}>
@@ -115,7 +115,7 @@ function TechnologySection() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
               <BarChart3 size={22} color="#2D6A4F" />
               <Typography variant="h5" sx={{ fontWeight: 600 }}>
-                Metricas de Desempenho
+                Métricas de Desempenho
               </Typography>
             </Box>
             <Grid container spacing={3} sx={{ mb: 4 }}>

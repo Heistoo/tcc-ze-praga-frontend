@@ -22,12 +22,12 @@ function DiagnosisDetailPage() {
       try {
         const data = await getDiagnosisById(id);
         if (!data) {
-          setError('Diagnostico nao encontrado.');
+          setError('Diagnóstico não encontrado.');
         } else {
           setDiagnosis(data);
         }
       } catch {
-        setError('Erro ao carregar diagnostico.');
+        setError('Erro ao carregar diagnóstico.');
       } finally {
         setLoading(false);
       }
@@ -42,7 +42,7 @@ function DiagnosisDetailPage() {
         onClick={() => navigate('/historico')}
         sx={{ mb: 2, color: 'text.secondary' }}
       >
-        Voltar ao Historico
+        Voltar ao Histórico
       </Button>
 
       {loading && (

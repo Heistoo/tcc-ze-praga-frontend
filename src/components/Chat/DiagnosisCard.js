@@ -12,7 +12,7 @@ const severityConfig = {
   alta: { label: 'Severa', color: '#E63946', icon: AlertTriangle, bg: '#FEE2E2' },
   media: { label: 'Moderada', color: '#F4A261', icon: AlertCircle, bg: '#FEF3C7' },
   baixa: { label: 'Leve', color: '#52B788', icon: Info, bg: '#D1FAE5' },
-  nenhuma: { label: 'Saudavel', color: '#52B788', icon: CheckCircle, bg: '#D1FAE5' },
+  nenhuma: { label: 'Saudável', color: '#52B788', icon: CheckCircle, bg: '#D1FAE5' },
 };
 
 function getConfidenceColor(confidence) {
@@ -65,7 +65,7 @@ function DiagnosisCard({ diagnosis, onSave }) {
         <Box sx={{ mb: 2 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
             <Typography variant="body2" sx={{ fontWeight: 500, fontSize: '0.8rem' }}>
-              Confianca
+              Confiança
             </Typography>
             <Typography variant="body2" sx={{ fontWeight: 700, color: confidenceColor, fontSize: '0.8rem' }}>
               {confidencePercent}%

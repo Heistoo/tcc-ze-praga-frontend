@@ -24,10 +24,10 @@ function HistoryList({ diagnoses, onDelete }) {
           <Inbox size={36} color="#9CA3AF" />
         </Box>
         <Typography variant="h6" color="text.secondary" sx={{ fontWeight: 600 }}>
-          Nenhum diagnostico salvo
+          Nenhum diagnóstico salvo
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-          Faca uma analise no chat e salve o resultado.
+          Faça uma análise no chat e salve o resultado.
         </Typography>
       </Box>
     );

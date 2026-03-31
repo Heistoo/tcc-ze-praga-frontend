@@ -41,7 +41,7 @@ function ApiSidebar({ sections, activeSection }) {
           fontSize: '0.7rem',
         }}
       >
-        Navegacao
+        Navegação
       </Typography>
       <List dense disablePadding>
         {sections.map((section) => {

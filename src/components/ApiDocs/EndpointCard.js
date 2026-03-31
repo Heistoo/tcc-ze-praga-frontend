@@ -50,7 +50,7 @@ function EndpointCard({ method, path, description, parameters, responseExample, 
         {parameters && parameters.length > 0 && (
           <Box sx={{ mb: 2 }}>
             <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
-              Parametros
+              Parâmetros
             </Typography>
             <Box
               component="table"
@@ -75,7 +75,7 @@ function EndpointCard({ method, path, description, parameters, responseExample, 
                 <tr>
                   <th>Nome</th>
                   <th>Tipo</th>
-                  <th>Descricao</th>
+                  <th>Descrição</th>
                 </tr>
               </thead>
               <tbody>

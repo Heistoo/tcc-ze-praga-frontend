@@ -22,7 +22,7 @@ const severityFilters = [
   { key: 'alta', label: 'Severa', color: '#E63946' },
   { key: 'media', label: 'Moderada', color: '#F4A261' },
   { key: 'baixa', label: 'Leve', color: '#52B788' },
-  { key: 'nenhuma', label: 'Saudavel', color: '#52B788' },
+  { key: 'nenhuma', label: 'Saudável', color: '#52B788' },
 ];
 
 function HistoryPage() {
@@ -61,7 +61,7 @@ function HistoryPage() {
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
         <Typography variant="h4" sx={{ fontWeight: 700 }}>
-          Historico de Diagnosticos
+          Histórico de Diagnósticos
         </Typography>
         {diagnoses.length > 0 && (
           <Button
@@ -76,13 +76,13 @@ function HistoryPage() {
         )}
       </Box>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-        Seus diagnosticos anteriores.
+        Seus diagnósticos anteriores.
       </Typography>
 
       <TextField
         fullWidth
         size="small"
-        placeholder="Buscar diagnostico..."
+        placeholder="Buscar diagnóstico..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         sx={{
@@ -146,10 +146,10 @@ function HistoryPage() {
       {!loading && <HistoryList diagnoses={filteredDiagnoses} onDelete={remove} />}
 
       <Dialog open={clearDialogOpen} onClose={() => setClearDialogOpen(false)}>
-        <DialogTitle>Limpar historico</DialogTitle>
+        <DialogTitle>Limpar histórico</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Tem certeza que deseja limpar todo o historico de diagnosticos? Esta acao nao pode ser desfeita.
+            Tem certeza que deseja limpar todo o histórico de diagnósticos? Esta ação não pode ser desfeita.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

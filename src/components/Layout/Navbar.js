@@ -23,9 +23,9 @@ const navLinks = [
 ];
 
 const mobileNavItems = [
-  { label: 'Inicio', path: '/', icon: <Leaf size={20} /> },
+  { label: 'Início', path: '/', icon: <Leaf size={20} /> },
   { label: 'Chat', path: '/chat', icon: <MessageCircle size={20} /> },
-  { label: 'Historico', path: '/historico', icon: <History size={20} /> },
+  { label: 'Histórico', path: '/historico', icon: <History size={20} /> },
   { label: 'API Docs', path: '/api-docs', icon: <BookOpen size={20} /> },
   { label: 'Sobre', path: '/sobre', icon: <Info size={20} /> },
 ];
@@ -84,7 +84,7 @@ function Navbar() {
                 letterSpacing: '-0.02em',
               }}
             >
-              Ze Praga
+              Zé Praga
             </Typography>
           </Box>
           {!isMobile && (
@@ -124,7 +124,7 @@ function Navbar() {
                   px: 3,
                 }}
               >
-                Iniciar Diagnostico
+                Iniciar Diagnóstico
               </Button>
             </Box>
           )}
@@ -139,7 +139,7 @@ function Navbar() {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 2, pb: 2 }}>
             <Leaf size={24} color={theme.palette.primary.main} />
             <Typography variant="h6" sx={{ fontWeight: 700, color: 'primary.dark' }}>
-              Ze Praga
+              Zé Praga
             </Typography>
           </Box>
           <List>
@@ -177,7 +177,7 @@ function Navbar() {
               endIcon={<ArrowRight size={18} />}
               onClick={() => setDrawerOpen(false)}
             >
-              Iniciar Diagnostico
+              Iniciar Diagnóstico
             </Button>
           </Box>
         </Box>

@@ -13,7 +13,7 @@ function useHistory() {
       const data = await getDiagnoses();
       setDiagnoses(data);
     } catch {
-      setError('Erro ao carregar historico.');
+      setError('Erro ao carregar histórico.');
     } finally {
       setLoading(false);
     }
@@ -28,7 +28,7 @@ function useHistory() {
       await deleteDiagnosis(id);
       setDiagnoses((prev) => prev.filter((d) => d.id !== id));
     } catch {
-      setError('Erro ao remover diagnostico.');
+      setError('Erro ao remover diagnóstico.');
     }
   }, []);
 
@@ -37,7 +37,7 @@ function useHistory() {
       await clearAllDiagnoses();
       setDiagnoses([]);
     } catch {
-      setError('Erro ao limpar historico.');
+      setError('Erro ao limpar histórico.');
     }
   }, []);
 

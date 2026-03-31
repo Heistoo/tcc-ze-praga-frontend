@@ -12,7 +12,7 @@ const severityConfig = {
   alta: { label: 'Severa', color: '#E63946', icon: AlertTriangle, bg: '#FEE2E2' },
   media: { label: 'Moderada', color: '#F4A261', icon: AlertCircle, bg: '#FEF3C7' },
   baixa: { label: 'Leve', color: '#52B788', icon: Info, bg: '#D1FAE5' },
-  nenhuma: { label: 'Saudavel', color: '#52B788', icon: CheckCircle, bg: '#D1FAE5' },
+  nenhuma: { label: 'Saudável', color: '#52B788', icon: CheckCircle, bg: '#D1FAE5' },
 };
 
 const cardVariants = {
@@ -41,7 +41,7 @@ function DiseasesSection() {
             mb: 1.5,
           }}
         >
-          Doencas Detectadas
+          Doenças Detectadas
         </Typography>
         <Typography
           variant="body1"

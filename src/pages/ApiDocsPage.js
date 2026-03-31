@@ -11,13 +11,13 @@ import ApiSidebar from '../components/ApiDocs/ApiSidebar';
 const BASE_URL = 'https://api.zepraga.com.br/api/v1';
 
 const SECTIONS = [
-  { id: 'introducao', label: 'Introducao' },
-  { id: 'autenticacao', label: 'Autenticacao' },
+  { id: 'introducao', label: 'Introdução' },
+  { id: 'autenticacao', label: 'Autenticação' },
   { id: 'quickstart', label: 'Quickstart' },
   { id: 'post-classify', label: 'POST /classify' },
   { id: 'get-models', label: 'GET /models' },
   { id: 'get-health', label: 'GET /health' },
-  { id: 'erros', label: 'Codigos de Erro' },
+  { id: 'erros', label: 'Códigos de Erro' },
   { id: 'rate-limiting', label: 'Rate Limiting' },
 ];
 
@@ -55,12 +55,12 @@ function ApiDocsPage() {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
             <BookOpen size={28} color="#2D6A4F" />
             <Typography variant="h3" sx={{ fontWeight: 700 }}>
-              Documentacao da API
+              Documentação da API
             </Typography>
           </Box>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.7 }}>
-            API RESTful publica para classificacao de doencas foliares em soja.
-            Integre o poder do diagnostico fitossanitario do Ze Praga em seus proprios sistemas.
+            API RESTful pública para classificação de doenças foliares em soja.
+            Integre o poder do diagnóstico fitossanitário do Zé Praga em seus próprios sistemas.
           </Typography>
           <Alert severity="info" sx={{ borderRadius: 2 }}>
             URL Base: <code style={{ fontWeight: 600 }}>{BASE_URL}</code>
@@ -72,12 +72,12 @@ function ApiDocsPage() {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
             <Key size={20} color="#2D6A4F" />
             <Typography variant="h5" sx={{ fontWeight: 600 }}>
-              Autenticacao
+              Autenticação
             </Typography>
           </Box>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.7 }}>
-            Todas as requisicoes devem incluir o header <code>Authorization</code> com sua API key.
-            Voce pode obter sua chave no painel de desenvolvedor.
+            Todas as requisições devem incluir o header <code>Authorization</code> com sua API key.
+            Você pode obter sua chave no painel de desenvolvedor.
           </Typography>
           <CodeBlock
             examples={{
@@ -95,7 +95,7 @@ function ApiDocsPage() {
             </Typography>
           </Box>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.7 }}>
-            Envie uma imagem de folha de soja e receba o diagnostico com plano de acao em poucos segundos.
+            Envie uma imagem de folha de soja e receba o diagnóstico com plano de ação em poucos segundos.
           </Typography>
           <CodeBlock
             examples={{
@@ -119,10 +119,10 @@ data = {
 response = requests.post(url, headers=headers, files=files, data=data)
 result = response.json()
 
-print(f"Doenca: {result['prediction']['class_name']}")
-print(f"Confianca: {result['prediction']['confidence']:.1%}")
+print(f"Doença: {result['prediction']['class_name']}")
+print(f"Confiança: {result['prediction']['confidence']:.1%}")
 if "action_plan" in result:
-    print(f"Nivel: {result['action_plan']['level']}")
+    print(f"Nível: {result['action_plan']['level']}")
     for step in result["action_plan"]["actions"]:
         print(f"  - {step}")
     print("Fontes:")
@@ -141,11 +141,11 @@ const response = await fetch('${BASE_URL}/classify', {
 });
 
 const result = await response.json();
-console.log(\`Doenca: \${result.prediction.class_name}\`);
-console.log(\`Confianca: \${(result.prediction.confidence * 100).toFixed(1)}%\`);
+console.log(\`Doença: \${result.prediction.class_name}\`);
+console.log(\`Confiança: \${(result.prediction.confidence * 100).toFixed(1)}%\`);
 if (result.action_plan) {
-  console.log(\`Nivel: \${result.action_plan.level}\`);
-  console.log('Acoes:', result.action_plan.actions);
+  console.log(\`Nível: \${result.action_plan.level}\`);
+  console.log('Ações:', result.action_plan.actions);
   console.log('Fontes:', result.action_plan.sources);
 }`,
               'Go': `package main
@@ -204,10 +204,10 @@ response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
 end
 
 result = JSON.parse(response.body)
-puts "Doenca: #{result['prediction']['class_name']}"
-puts "Confianca: #{(result['prediction']['confidence'] * 100).round(1)}%"
+puts "Doença: #{result['prediction']['class_name']}"
+puts "Confiança: #{(result['prediction']['confidence'] * 100).round(1)}%"
 if result['action_plan']
-  puts "Nivel: #{result['action_plan']['level']}"
+  puts "Nível: #{result['action_plan']['level']}"
   result['action_plan']['sources'].each { |s| puts "  [#{s['name']}] #{s['detail']}" }
 end`,
             }}
@@ -226,37 +226,37 @@ end`,
           <EndpointCard
             method="POST"
             path="/classify"
-            description="Envia uma imagem de folha de soja para classificacao. Retorna a doenca identificada, nivel de confianca, severidade e top-K predicoes. Opcionalmente inclui um plano de acao gerado por IA (GPT-4o) com 3 niveis de detalhamento (essencial, campo, especialista) e fontes de pesquisa utilizadas — quando habilitado, o tempo de resposta pode aumentar em 1-3 segundos."
+            description="Envia uma imagem de folha de soja para classificação. Retorna a doença identificada, nível de confiança, severidade e top-K predições. Opcionalmente inclui um plano de ação gerado por IA (GPT-4o) com 3 níveis de detalhamento (essencial, campo, especialista) e fontes de pesquisa utilizadas — quando habilitado, o tempo de resposta pode aumentar em 1-3 segundos."
             parameters={[
               { name: 'image', type: 'file', description: 'Imagem da folha (JPG, PNG, WebP, max 10MB)', required: true },
-              { name: 'model', type: 'string', description: 'Modelo: resnet50, efficientnet_b4, vit_b16, ensemble (padrao)', required: false },
-              { name: 'top_k', type: 'integer', description: 'Numero de predicoes retornadas (padrao: 5)', required: false },
-              { name: 'include_action_plan', type: 'boolean', description: 'Incluir plano de acao gerado por IA na resposta (padrao: false)', required: false },
-              { name: 'action_plan_level', type: 'string', description: 'Nivel do plano: essencial, campo ou especialista (padrao: essencial). Requer include_action_plan=true', required: false },
+              { name: 'model', type: 'string', description: 'Modelo: resnet50, efficientnet_b4, vit_b16, ensemble (padrão)', required: false },
+              { name: 'top_k', type: 'integer', description: 'Número de predições retornadas (padrão: 5)', required: false },
+              { name: 'include_action_plan', type: 'boolean', description: 'Incluir plano de ação gerado por IA na resposta (padrão: false)', required: false },
+              { name: 'action_plan_level', type: 'string', description: 'Nível do plano: essencial, campo ou especialista (padrão: essencial). Requer include_action_plan=true', required: false },
             ]}
             responseExample={{
               status: 'success',
               prediction: {
-                class_name: 'Ferrugem Asiatica',
+                class_name: 'Ferrugem Asiática',
                 scientific_name: 'Phakopsora pachyrhizi',
                 confidence: 0.942,
                 severity: 'alta',
               },
               top_k: [
-                { class_name: 'Ferrugem Asiatica', confidence: 0.942 },
+                { class_name: 'Ferrugem Asiática', confidence: 0.942 },
                 { class_name: 'Mancha Alvo', confidence: 0.031 },
-                { class_name: 'Saudavel', confidence: 0.018 },
+                { class_name: 'Saudável', confidence: 0.018 },
               ],
               action_plan: {
                 level: 'essencial',
                 actions: [
                   'Aplicar fungicida a base de triazol + estrobilurina imediatamente',
-                  'Monitorar a evolucao da doenca a cada 7 dias',
-                  'Registrar a ocorrencia no sistema de alerta fitossanitario',
+                  'Monitorar a evolução da doença a cada 7 dias',
+                  'Registrar a ocorrência no sistema de alerta fitossanitário',
                 ],
                 sources: [
-                  { name: 'EMBRAPA Soja', detail: 'Circular Tecnica 104 — Ferrugem Asiatica da Soja' },
-                  { name: 'Consorcio Antiferrugem', detail: 'Sistema de alerta e monitoramento nacional' },
+                  { name: 'EMBRAPA Soja', detail: 'Circular Técnica 104 — Ferrugem Asiática da Soja' },
+                  { name: 'Consórcio Antiferrugem', detail: 'Sistema de alerta e monitoramento nacional' },
                   { name: 'PlantVillage - Penn State University', detail: 'Dataset de treinamento dos modelos' },
                 ],
               },
@@ -287,7 +287,7 @@ response = requests.post(
 result = response.json()
 print(result["prediction"]["class_name"])
 plan = result.get("action_plan", {})
-print(f"Nivel: {plan.get('level')}")
+print(f"Nível: {plan.get('level')}")
 for src in plan.get("sources", []):
     print(f"  Fonte: {src['name']}")`,
               'JavaScript': `const formData = new FormData();
@@ -346,7 +346,7 @@ data['action_plan']['sources'].each { |s| puts s['name'] }`,
           <EndpointCard
             method="GET"
             path="/models"
-            description="Lista os modelos de classificacao disponiveis e suas metricas de desempenho."
+            description="Lista os modelos de classificação disponíveis e suas métricas de desempenho."
             responseExample={{
               models: [
                 { id: 'resnet50', name: 'ResNet-50', accuracy: 0.921, f1_score: 0.918 },
@@ -390,7 +390,7 @@ puts JSON.parse(res.body)["models"]`,
           <EndpointCard
             method="GET"
             path="/health"
-            description="Verifica o status do servico e disponibilidade dos modelos. Nao requer autenticacao."
+            description="Verifica o status do serviço e disponibilidade dos modelos. Não requer autenticação."
             responseExample={{
               status: 'healthy',
               version: '1.0.0',
@@ -420,7 +420,7 @@ puts JSON.parse(res.body)["status"]`,
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
             <AlertTriangle size={20} color="#2D6A4F" />
             <Typography variant="h5" sx={{ fontWeight: 600 }}>
-              Codigos de Erro
+              Códigos de Erro
             </Typography>
           </Box>
           <Box
@@ -444,16 +444,16 @@ puts JSON.parse(res.body)["status"]`,
           >
             <thead>
               <tr>
-                <th>Codigo</th>
-                <th>Descricao</th>
+                <th>Código</th>
+                <th>Descrição</th>
               </tr>
             </thead>
             <tbody>
               {[
-                { code: 400, desc: 'Requisicao invalida — imagem ausente ou formato nao suportado' },
-                { code: 401, desc: 'Nao autorizado — API key ausente ou invalida' },
-                { code: 413, desc: 'Imagem muito grande — maximo 10MB' },
-                { code: 422, desc: 'Imagem nao contem uma folha identificavel' },
+                { code: 400, desc: 'Requisição inválida — imagem ausente ou formato não suportado' },
+                { code: 401, desc: 'Não autorizado — API key ausente ou inválida' },
+                { code: 413, desc: 'Imagem muito grande — máximo 10MB' },
+                { code: 422, desc: 'Imagem não contém uma folha identificável' },
                 { code: 429, desc: 'Rate limit excedido — aguarde antes de tentar novamente' },
                 { code: 500, desc: 'Erro interno do servidor' },
               ].map((err) => (
@@ -477,8 +477,8 @@ puts JSON.parse(res.body)["status"]`,
             </Typography>
           </Box>
           <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
-            A API possui um limite de <strong>100 requisicoes por minuto</strong> por API key.
-            O header <code>X-RateLimit-Remaining</code> indica as requisicoes restantes.
+            A API possui um limite de <strong>100 requisições por minuto</strong> por API key.
+            O header <code>X-RateLimit-Remaining</code> indica as requisições restantes.
             Ao exceder o limite, a API retorna status <code>429</code> com o header
             {' '}<code>Retry-After</code> indicando os segundos para aguardar.
           </Typography>
