@@ -1,14 +1,37 @@
-import * as mockHistory from './mock/mockHistory';
-import { getCurrentUserId } from './authService';
+import api from './api';
+import { attachActionPlan } from './actionPlanService';
+import { diagnosisToCreatePayload, mapDiagnosis } from './diagnosisMapper';
+import { API_ENDPOINTS } from '../constants';
 
-const userId = () => getCurrentUserId();
+async function attachPlans(diagnoses) {
+  return Promise.all(diagnoses.map((diagnosis) => attachActionPlan(diagnosis)));
+}
 
-export const getDiagnoses = () => mockHistory.getAll(userId());
+export async function getDiagnoses() {
+  const response = await api.get(API_ENDPOINTS.diagnoses.list, {
+    params: { page: 1, limit: 100 },
+  });
+  const items = (response.data.items || []).map(mapDiagnosis);
+  return attachPlans(items);
+}
 
-export const getDiagnosisById = (id) => mockHistory.getById(id, userId());
+export async function getDiagnosisById(id) {
+  const response = await api.get(API_ENDPOINTS.diagnoses.detail(id));
+  return attachActionPlan(mapDiagnosis(response.data));
+}
 
-export const saveDiagnosis = (diagnosis) => mockHistory.save(diagnosis, userId());
+export async function saveDiagnosis(diagnosis) {
+  const response = await api.post(API_ENDPOINTS.diagnoses.list, diagnosisToCreatePayload(diagnosis));
+  return attachActionPlan(mapDiagnosis(response.data));
+}
 
-export const deleteDiagnosis = (id) => mockHistory.remove(id, userId());
+export async function deleteDiagnosis(id) {
+  await api.delete(API_ENDPOINTS.diagnoses.detail(id));
+}
 
-export const clearAllDiagnoses = () => mockHistory.clearAll(userId());
+export async function clearAllDiagnoses() {
+  const response = await api.delete(API_ENDPOINTS.diagnoses.list, {
+    params: { confirm: true },
+  });
+  return response.data;
+}

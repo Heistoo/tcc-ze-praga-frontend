@@ -6,6 +6,23 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+## Environment
+
+For local development with the backend Docker compose running on your machine, create a `.env`
+file from the example:
+
+```bash
+cp .env.example .env
+```
+
+The default API URL is:
+
+```env
+REACT_APP_API_URL=http://localhost:8000
+```
+
+Restart `npm start` after changing environment variables.
+
 ### `npm start`
 
 Runs the app in the development mode.\

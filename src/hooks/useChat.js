@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { sendMessage } from '../services/chatService';
+import { CHAT_MESSAGES } from '../constants';
 
 const INITIAL_ASSISTANT_MESSAGE = {
   role: 'assistant',
-  content:
-    'Olá! Sou o Zé Praga, seu assistente de diagnóstico fitossanitário. Envie uma foto da folha de soja para que eu possa analisar, ou pergunte sobre pragas e doenças da cultura.',
+  content: CHAT_MESSAGES.initialAssistant,
   diagnosis: null,
 };
 
@@ -21,7 +21,7 @@ function useChat() {
     const userMessage = {
       id: uuidv4(),
       role: 'user',
-      content: text || (imageFile ? 'Imagem enviada para análise' : ''),
+      content: text || (imageFile ? CHAT_MESSAGES.imageOnlyMessage : ''),
       imageUrl: imageFile ? URL.createObjectURL(imageFile) : null,
     };
 
@@ -48,7 +48,7 @@ function useChat() {
       const errorMessage = {
         id: uuidv4(),
         role: 'assistant',
-        content: 'Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente.',
+        content: CHAT_MESSAGES.genericError,
         diagnosis: null,
       };
       setMessages((prev) => [...prev, errorMessage]);

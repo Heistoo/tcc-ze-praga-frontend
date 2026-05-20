@@ -17,9 +17,16 @@ import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { Activity, Crown, LogOut, Mail, Save, UserRound } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
-import { PLAN_DETAILS } from '../services/subscriptionService';
+import { PLAN_DETAILS, USER_NAME_ERROR_MESSAGE, isValidUserName } from '../constants';
 
 const DEFAULT_PROFILE_NAME = 'Produtor';
+
+function normalizeProfileForm(profile) {
+  return {
+    full_name: (profile?.full_name || '').trim(),
+    email: (profile?.email || '').trim(),
+  };
+}
 
 function UsageRow({ label, value }) {
   const percent = value.limit ? Math.min(100, (value.used / value.limit) * 100) : 0;
@@ -57,6 +64,11 @@ function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const normalizedForm = normalizeProfileForm(form);
+  const normalizedUser = normalizeProfileForm(user);
+  const profileHasChanges =
+    normalizedForm.full_name !== normalizedUser.full_name || normalizedForm.email !== normalizedUser.email;
+  const nameIsInvalid = !isValidUserName(form.full_name);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -76,10 +88,12 @@ function ProfilePage() {
 
   const handleSave = async (event) => {
     event.preventDefault();
+    if (!profileHasChanges || nameIsInvalid) return;
+
     setSaving(true);
     setMessage('');
     try {
-      await updateProfile(form);
+      await updateProfile(normalizedForm);
       setMessage('Perfil atualizado com sucesso.');
       setEditing(false);
     } finally {
@@ -196,6 +210,8 @@ function ProfilePage() {
                   name="full_name"
                   value={form.full_name}
                   onChange={handleChange}
+                  error={nameIsInvalid}
+                  helperText={nameIsInvalid ? USER_NAME_ERROR_MESSAGE : ''}
                   sx={{ mb: 2 }}
                 />
                 <TextField
@@ -208,7 +224,12 @@ function ProfilePage() {
                   onChange={handleChange}
                   sx={{ mb: 3 }}
                 />
-                <Button type="submit" variant="contained" startIcon={<Save size={18} />} disabled={saving}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  startIcon={<Save size={18} />}
+                  disabled={saving || !profileHasChanges || nameIsInvalid}
+                >
                   {saving ? 'Salvando...' : 'Salvar alterações'}
                 </Button>
               </Box>

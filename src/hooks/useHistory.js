@@ -1,23 +1,30 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getDiagnoses, deleteDiagnosis, clearAllDiagnoses } from '../services/historyService';
+import { HISTORY_MESSAGES } from '../constants';
 
-function useHistory() {
+function useHistory(enabled = true) {
   const [diagnoses, setDiagnoses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const load = useCallback(async () => {
+    if (!enabled) {
+      setDiagnoses([]);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {
       const data = await getDiagnoses();
       setDiagnoses(data);
     } catch {
-      setError('Erro ao carregar histórico.');
+      setError(HISTORY_MESSAGES.loadError);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [enabled]);
 
   useEffect(() => {
     load();
@@ -28,7 +35,7 @@ function useHistory() {
       await deleteDiagnosis(id);
       setDiagnoses((prev) => prev.filter((d) => d.id !== id));
     } catch {
-      setError('Erro ao remover diagnóstico.');
+      setError(HISTORY_MESSAGES.removeError);
     }
   }, []);
 
@@ -37,7 +44,7 @@ function useHistory() {
       await clearAllDiagnoses();
       setDiagnoses([]);
     } catch {
-      setError('Erro ao limpar histórico.');
+      setError(HISTORY_MESSAGES.clearError);
     }
   }, []);
 

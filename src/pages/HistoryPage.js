@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -18,6 +19,7 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import HistoryList from '../components/History/HistoryList';
 import useHistory from '../hooks/useHistory';
+import { useAuth } from '../hooks/useAuth';
 
 const severityFilters = [
   { key: 'all', label: 'Todos' },
@@ -28,10 +30,18 @@ const severityFilters = [
 ];
 
 function HistoryPage() {
-  const { diagnoses, loading, error, remove, clearAll } = useHistory();
+  const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
+  const { diagnoses, loading, error, remove, clearAll } = useHistory(Boolean(user));
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSeverity, setActiveSeverity] = useState('all');
   const [clearDialogOpen, setClearDialogOpen] = useState(false);
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate('/login', { replace: true, state: { from: '/historico' } });
+    }
+  }, [authLoading, navigate, user]);
 
   const filteredDiagnoses = useMemo(() => {
     let result = diagnoses;
@@ -143,6 +153,14 @@ function HistoryPage() {
     }
     setClearDialogOpen(false);
   };
+
+  if (authLoading || !user) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>

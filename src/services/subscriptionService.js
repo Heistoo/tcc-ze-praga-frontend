@@ -1,51 +1,46 @@
 import api from './api';
-import { getAuthHeaders, getCurrentUser, getCurrentUserId } from './authService';
-import * as mockSubscriptions from './mock/mockSubscriptions';
+import { API_ENDPOINTS, API_ERROR_MESSAGES } from '../constants';
+export { PLAN_DETAILS } from '../constants';
 
-const AUTH_MODE = process.env.REACT_APP_AUTH_MODE || 'mock';
-
-export const PLAN_DETAILS = mockSubscriptions.PLAN_DETAILS;
-export const usageFromPlan = mockSubscriptions.usageFromPlan;
+export function usageFromPlan(plan) {
+  return {
+    chat: { used: 0, limit: plan.chat_daily_limit, remaining: plan.chat_daily_limit },
+    inference: {
+      used: 0,
+      limit: plan.inference_daily_limit,
+      remaining: plan.inference_daily_limit,
+    },
+    api: { used: 0, limit: plan.api_monthly_limit, remaining: plan.api_monthly_limit },
+  };
+}
 
 function throwApiError(message) {
   throw new Error(message);
 }
 
 export async function listPlans() {
-  if (AUTH_MODE !== 'api') return mockSubscriptions.listPlans();
-
   try {
-    const response = await api.get('/api/v1/subscriptions/plans');
+    const response = await api.get(API_ENDPOINTS.subscriptions.plans);
     return response.data;
   } catch {
-    return throwApiError('Não foi possível carregar os planos de assinatura.');
+    return throwApiError(API_ERROR_MESSAGES.loadPlans);
   }
 }
 
 export async function getMySubscription() {
-  if (AUTH_MODE !== 'api') return getCurrentUser()?.subscription || null;
-
   try {
-    const response = await api.get('/api/v1/subscriptions/me', { headers: getAuthHeaders() });
+    const response = await api.get(API_ENDPOINTS.subscriptions.me);
     return response.data;
   } catch {
-    return throwApiError('Não foi possível carregar sua assinatura.');
+    return throwApiError(API_ERROR_MESSAGES.loadSubscription);
   }
 }
 
 export async function subscribeToPlan(planName) {
-  if (AUTH_MODE !== 'api') {
-    return mockSubscriptions.subscribe(getCurrentUserId(), planName);
-  }
-
   try {
-    const response = await api.post(
-      '/api/v1/subscriptions/me',
-      { plan_name: planName },
-      { headers: getAuthHeaders() }
-    );
+    const response = await api.post(API_ENDPOINTS.subscriptions.me, { plan_name: planName });
     return response.data;
   } catch {
-    return throwApiError('Não foi possível ativar a assinatura.');
+    return throwApiError(API_ERROR_MESSAGES.activateSubscription);
   }
 }

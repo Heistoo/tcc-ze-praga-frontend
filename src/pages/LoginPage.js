@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { LogIn, ShieldCheck, Sprout, UserPlus } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import { USER_NAME_ERROR_MESSAGE, isValidUserName } from '../constants';
 
 function LoginPage() {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -26,6 +27,7 @@ function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const redirectTo = location.state?.from || '/perfil';
+  const nameIsInvalid = isRegistering && !isValidUserName(form.full_name);
 
   const handleChange = (event) => {
     setForm((prev) => ({ ...prev, [event.target.name]: event.target.value }));
@@ -34,6 +36,11 @@ function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError('');
+    if (nameIsInvalid) {
+      setError(USER_NAME_ERROR_MESSAGE);
+      return;
+    }
+
     setSubmitting(true);
 
     try {
@@ -124,6 +131,8 @@ function LoginPage() {
                   name="full_name"
                   value={form.full_name}
                   onChange={handleChange}
+                  error={nameIsInvalid}
+                  helperText={nameIsInvalid ? USER_NAME_ERROR_MESSAGE : ''}
                   sx={{ mb: 2 }}
                 />
               )}
@@ -154,7 +163,7 @@ function LoginPage() {
                 type="submit"
                 variant="contained"
                 startIcon={isRegistering ? <UserPlus size={18} /> : <LogIn size={18} />}
-                disabled={submitting}
+                disabled={submitting || nameIsInvalid}
                 sx={{ py: 1.25 }}
               >
                 {submitting ? 'Entrando...' : isRegistering ? 'Criar conta' : 'Entrar'}

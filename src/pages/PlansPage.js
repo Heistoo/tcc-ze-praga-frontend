@@ -13,10 +13,8 @@ import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
 import { Check, Crown } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
-import {
-  PLAN_DETAILS,
-  listPlans,
-} from '../services/subscriptionService';
+import { listPlans } from '../services/subscriptionService';
+import { PLAN_DETAILS } from '../constants';
 
 function formatLimit(value, suffix) {
   return value === null ? 'Ilimitado' : `${value} ${suffix}`;

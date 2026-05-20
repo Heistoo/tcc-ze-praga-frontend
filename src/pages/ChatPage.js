@@ -6,16 +6,20 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Tooltip from '@mui/material/Tooltip';
 import { alpha, useTheme } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { History, Leaf, SquarePen } from 'lucide-react';
 import ChatWindow from '../components/Chat/ChatWindow';
 import ChatInput from '../components/Chat/ChatInput';
 import DragDropOverlay from '../components/Chat/DragDropOverlay';
 import useChat from '../hooks/useChat';
+import { useAuth } from '../hooks/useAuth';
 import { saveDiagnosis } from '../services/historyService';
+import { CHAT_MESSAGES } from '../constants';
 
 function ChatPage() {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const { messages, isLoading, send, clearChat } = useChat();
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
   const [isDragging, setIsDragging] = useState(false);
@@ -23,13 +27,19 @@ function ChatPage() {
   const fileInputTrigger = useRef(null);
 
   const handleSaveDiagnosis = useCallback(async (diagnosis) => {
+    if (!user) {
+      setSnackbar({ open: true, message: CHAT_MESSAGES.loginRequiredToSave, severity: 'info' });
+      navigate('/login', { state: { from: '/chat' } });
+      return;
+    }
+
     try {
       await saveDiagnosis(diagnosis);
-      setSnackbar({ open: true, message: 'Diagnóstico salvo no histórico!', severity: 'success' });
+      setSnackbar({ open: true, message: CHAT_MESSAGES.diagnosisSaved, severity: 'success' });
     } catch {
-      setSnackbar({ open: true, message: 'Erro ao salvar o diagnóstico.', severity: 'error' });
+      setSnackbar({ open: true, message: CHAT_MESSAGES.saveDiagnosisError, severity: 'error' });
     }
-  }, []);
+  }, [navigate, user]);
 
   const handleDragEnter = (e) => {
     e.preventDefault();

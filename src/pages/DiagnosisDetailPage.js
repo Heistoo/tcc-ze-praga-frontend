@@ -9,15 +9,29 @@ import Alert from '@mui/material/Alert';
 import { ArrowLeft } from 'lucide-react';
 import DiagnosisResult from '../components/Diagnosis/DiagnosisResult';
 import { getDiagnosisById } from '../services/historyService';
+import { useAuth } from '../hooks/useAuth';
 
 function DiagnosisDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
   const [diagnosis, setDiagnosis] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!authLoading && !user) {
+      navigate('/login', { replace: true, state: { from: `/historico/${id}` } });
+    }
+  }, [authLoading, id, navigate, user]);
+
+  useEffect(() => {
+    if (authLoading) return;
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
     async function load() {
       try {
         const data = await getDiagnosisById(id);
@@ -33,7 +47,7 @@ function DiagnosisDetailPage() {
       }
     }
     load();
-  }, [id]);
+  }, [authLoading, id, user]);
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
